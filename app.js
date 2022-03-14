@@ -1,10 +1,16 @@
+//
+//ENVIRONMENT VARIABLES
+//
 const dotenv = require("dotenv");
 dotenv.config();
 
+//
+//MODULES
+//
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-
+const userRoutes = require("./routes/user");
 //
 //CORS / CORS MUST BE PLACE BEFORE THE MIDDLEWAIRES
 //
@@ -29,8 +35,13 @@ mongoose
 	.then(() => console.log("Connexion à MongoDB réussie !"))
 	.catch(() => console.log("Connexion à MongoDB échouée !"));
 
-//must be place before the JSON requests
+//must be placed before the JSON requests
 app.use(express.json());
+
+//
+//MIDDLEWARES
+//
+app.use("/api/auth", userRoutes);
 //
 //
 module.exports = app;
