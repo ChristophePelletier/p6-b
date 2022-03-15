@@ -22,8 +22,13 @@ exports.signup = (req, res, next) => {
 				.then(() => res.status(201).json({ message: "Utilisateur créé" }))
 				.catch((error) => res.status(400).json({ error }));
 		})
+
 		.catch((error) => res.status(500).json({ error }));
 };
+
+// http://localhost:3000/api/auth/signup
+// test postman ok --> JSON
+// {"email":"bbb@aaa.fr","password":"bbb"}
 
 //LOGIN
 // POST : /api/auth/login
@@ -55,3 +60,7 @@ exports.login = (req, res, next) => {
 		})
 		.catch((error) => res.status(500).json({ error }));
 };
+
+// http://localhost:3000/api/auth/login
+// test postman ok --> JSON
+// {"email":"test@test.fr","password":"test"}

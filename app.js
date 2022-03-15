@@ -11,6 +11,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const userRoutes = require("./routes/user");
+
+// for images
+const path = require("path");
 //
 //CORS / CORS MUST BE PLACE BEFORE THE MIDDLEWAIRES
 //
@@ -36,12 +39,17 @@ mongoose
 	.catch(() => console.log("Connexion à MongoDB échouée !"));
 
 //must be placed before the JSON requests
-app.use(express.json());
 
 //
 //MIDDLEWARES
 //
+app.use(express.json());
+// --> req.body
 app.use("/api/auth", userRoutes);
 //
+// test upload
+app.use("/api/upload", userRoutes);
+
+app.use("/images", express.static(path.join(__dirname, "images")));
 //
 module.exports = app;
