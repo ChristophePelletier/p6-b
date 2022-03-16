@@ -46,17 +46,21 @@ exports.login = (req, res, next) => {
 				.then((valid) => {
 					if (!valid) {
 						console.log("erreur");
-						return res.status(401).json({ error: "Mot de passe incorrect" });
+						return res
+							.status(401)
+							.json({ error: "Le mot de passe est incorrect" });
 					}
 					res.status(200).json({
 						userId: user._id,
+						// sign function : --> 3 arguments / 1: datas to endode in the token (payload) / 2 : secret key / 3 : time
 						token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
-							expiresIn: "24h",
+							expiresIn: "1h",
 						}),
 						//OK Request headers : Bearer user._id crypted
 					});
 				})
 				.catch((error) => res.status(500).json({ error }));
+			// for connexion problem
 		})
 		.catch((error) => res.status(500).json({ error }));
 };
