@@ -74,18 +74,17 @@ exports.deleteSauce = (req, res, next) => {
 				error: new Error("Unauthorized request!"),
 			});
 		}
+		//
 
-		Sauce.deleteOne({ _id: req.params.id })
-			.then(() => {
-				res.status(200).json({
-					message: "Deleted!",
-				});
-			})
-			.catch((error) => {
-				res.status(400).json({
-					error: error,
-				});
+		//
+		Sauce.findOne({ _id: req.params.id }).then((sauce) => {
+			const filename = sauce.imageUrl.split("/images/")[1];
+			fs.unlink(`images/${filename}`, () => {
+				Sauce.deleteOne({ _id: req.params.id })
+					.then(() => res.status(200).json({ message: "Sauce supprimée !" }))
+					.catch((error) => res.status(400).json({ error }));
 			});
+		});
 	});
 };
 
