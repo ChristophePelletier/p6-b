@@ -13,7 +13,7 @@ const app = express();
 const userRoutes = require("./routes/user");
 const sauceRoutes = require("./routes/sauces");
 //for the test only
-// for images
+// for images -> gets the path of the files --> for the middleware for the images
 const path = require("path");
 //
 //CORS / CORS MUST BE PLACE BEFORE THE MIDDLEWAIRES
@@ -44,11 +44,14 @@ mongoose
 //
 app.use(express.json());
 // --> must be placed before the JSON requests
+// --> gets all the requests with content-type application/json
+// --> request are available in body
 // --> req.body
 
 //
 app.use("/api/auth", userRoutes);
 app.use("/api/sauces", sauceRoutes);
+//
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;

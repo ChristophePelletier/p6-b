@@ -7,6 +7,7 @@ module.exports = (req, res, next) => {
 		const userId = decodedToken.userId;
 		// prevent delete object from someone else
 		//req.userId = userId;
+		// we add to the request object the userId !
 		req.auth = { userId: userId };
 		if (req.body.userId && req.body.userId !== userId) {
 			console.log("Middleware auth : erreur vérif token");
