@@ -39,22 +39,16 @@ mongoose
 	.then(() => console.log("OK OK OK Connexion à MongoDB OK OK OK"))
 	.catch(() => console.log("!!!!!!Échec Connexion à MongoDB!!!!!!"));
 
-//must be placed before the JSON requests
-
 //
 //MIDDLEWARES
 //
 app.use(express.json());
+// --> must be placed before the JSON requests
 // --> req.body
 
-/*
-!!!!
-*/
+//
 app.use("/api/auth", userRoutes);
 app.use("/api/sauces", sauceRoutes);
-/*
-!!!!
-*/
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;
