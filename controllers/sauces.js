@@ -62,7 +62,7 @@ updateSauce
 the user uploads a new image
 -> if new image -> parse req.body
 -> if no new image -> req.body
-*/
+
 exports.updateSauce = (req, res, next) => {
 	//we check if there is a new image or not
 	// ? ternary operator --> the update with a new req.file -> ... / the update without new req.file -> ...
@@ -89,7 +89,7 @@ exports.updateSauce = (req, res, next) => {
 		.then(() => res.status(200).json({ message: "Sauce modifiée" }))
 		.catch((error) => res.status(400).json({ error }));
 };
-
+*/
 /*
 deleteSauce
 */
