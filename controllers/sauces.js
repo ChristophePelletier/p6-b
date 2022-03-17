@@ -134,10 +134,13 @@ exports.likeSauce = (req, res, next) => {
 	Sauce.findOne({
 		_id: req.params.id,
 		//req.params refers to items with a ':' in the URL
-		//and req.query refers to items associated with the '?'
 	})
-		.then(() => {
-			console.log("test :", req.body);
+		.then((sauce) => {
+			sauce.usersLiked.push(req.body.userId);
+			console
+				.log("req.body :", req.body)
+				.res.status(200)
+				.json({ message: "like test" });
 		})
 		.catch((error) => {
 			res.status(404).json({
