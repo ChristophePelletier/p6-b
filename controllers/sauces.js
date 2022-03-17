@@ -138,9 +138,14 @@ exports.likeSauce = (req, res, next) => {
 		.then((sauce) => {
 			if (
 				req.body.like == 1 &&
-				sauce.usersLiked.includes(req.body._id) == false
+				sauce.usersLiked.includes(req.body.userId) == false
 			) {
 				sauce.usersLiked.push(req.body.userId);
+				if (sauce.usersDisliked.includes(req.body.userId) == true) {
+					let indexToDelete = sauce.usersDisliked.IndexOf(req.body.userId);
+					sauce.userDisliked.splice(indexToDelete, 1);
+				} else {
+				}
 			} else if (
 				req.body.like == -1 &&
 				sauce.usersDisliked.includes(req.body._id) == false
