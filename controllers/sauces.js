@@ -152,6 +152,11 @@ exports.likeSauce = (req, res, next) => {
 				sauce.usersDisliked.includes(req.body._id) == false
 			) {
 				sauce.usersDisliked.push(req.body.userId);
+				if (sauce.usersLiked.includes(req.body.userId) == true) {
+					let indexToDelete = sauce.usersLiked.IndexOf(req.body.userId);
+					sauce.userLiked.splice(indexToDelete, 1);
+				} else {
+				}
 			} else if (req.body.like == 0) {
 			}
 			/*
