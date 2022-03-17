@@ -136,7 +136,18 @@ exports.likeSauce = (req, res, next) => {
 		//req.params refers to items with a ':' in the URL
 	})
 		.then((sauce) => {
-			sauce.usersLiked.push(req.body.userId);
+			if (
+				req.body.like == 1 &&
+				sauce.usersLiked.includes(req.body._id) == false
+			) {
+				sauce.usersLiked.push(req.body.userId);
+			} else if (
+				req.body.like == -1 &&
+				sauce.usersDisliked.includes(req.body._id) == false
+			) {
+				sauce.usersDisliked.push(req.body.userId);
+			} else if (req.body.like == 0) {
+			}
 			/*
 			console
 				.log("req.body :", req.body)
