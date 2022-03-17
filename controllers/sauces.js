@@ -126,3 +126,22 @@ exports.updateSauce = (req, res, next) => {
 	});
 	//
 };
+
+/*
+likeSauce
+*/
+exports.likeSauce = (req, res, next) => {
+	Sauce.findOne({
+		_id: req.params.id,
+		//req.params refers to items with a ':' in the URL
+		//and req.query refers to items associated with the '?'
+	})
+		.then(() => {
+			console.log("test :", req.body);
+		})
+		.catch((error) => {
+			res.status(404).json({
+				error: error,
+			});
+		});
+};
