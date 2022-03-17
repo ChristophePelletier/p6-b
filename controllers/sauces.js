@@ -135,17 +135,16 @@ exports.likeSauce = (req, res, next) => {
 		_id: req.params.id,
 	})
 		.then((sauce) => {
-			/*
 			if (
 				req.body.like == 1
 				// && sauce.usersLiked.includes(req.body.userId) == false
 			) {
 				sauce.usersLiked.push(req.body.userId);
-				sauce.likes = sauce.users.Liked.length;
+				sauce.likes = sauce.usersLiked.length;
 				if (sauce.usersDisliked.includes(req.body.userId) == true) {
-					let indexToDelete = sauce.usersDisliked.IndexOf(req.body.userId);
+					let indexToDelete = sauce.usersDisliked.indexOf(req.body.userId);
 					sauce.usersDisliked.splice(indexToDelete, 1);
-					sauce.dislikes = sauce.users.Disliked.length;
+					sauce.dislikes = sauce.usersDisliked.length;
 				} else {
 					console.log("pas de dislike avant un like");
 				}
@@ -205,11 +204,11 @@ exports.likeSauce = (req, res, next) => {
 					// !!response to the front necessary else the request would expire
 					.catch((error) => res.status(400).json({ error: error }));
 			}
-			*/
+			/*
 			console
 				.log("req.body :", req.body)
 				.res.status(200)
-				.json({ message: "like test" });
+				.json({ message: "like test" });*/
 		})
 
 		.catch((error) => {
