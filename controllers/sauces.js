@@ -146,8 +146,18 @@ exports.likeSauce = (req, res, next) => {
 					let indexToDelete = sauce.usersDisliked.IndexOf(req.body.userId);
 					sauce.userDisliked.splice(indexToDelete, 1);
 				} else {
+					console.log("pas de dislike avant un like");
 				}
-			} else if (
+			}
+			//
+			else if (
+				req.body.like == 1 &&
+				sauce.usersLiked.includes(req.body.userId) == true
+			) {
+				console.log("déjà liké");
+			}
+			//
+			else if (
 				req.body.like == -1 &&
 				sauce.usersDisliked.includes(req.body.userId) == false
 			) {
@@ -157,7 +167,16 @@ exports.likeSauce = (req, res, next) => {
 					sauce.usersLiked.splice(indexToDelete, 1);
 				} else {
 				}
-			} else if (req.body.like == 0) {
+			}
+			//
+			else if (
+				req.body.like == -1 &&
+				sauce.usersDisliked.includes(req.body.userId) == true
+			) {
+				console.log("déjà disliké");
+			}
+			//
+			else if (req.body.like == 0) {
 				if (sauce.usersDisliked.includes(req.body.userId) == true) {
 					let indexToDelete = sauce.usersDisliked.IndexOf(req.body.userId);
 					sauce.userDisliked.splice(indexToDelete, 1);
@@ -176,7 +195,7 @@ exports.likeSauce = (req, res, next) => {
 			sauce
 				.save()
 				//save returns a promise --> then ... catch
-				.then(() => res.status(201).json({ message: "Sauce enregistrée" }))
+				.then(() => res.status(201).json({ message: "like dislike ok" }))
 				// !!response to the front necessary else the request would expire
 				.catch((error) => res.status(400).json({ error: error }));
 		})
