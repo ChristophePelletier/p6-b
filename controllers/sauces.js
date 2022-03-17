@@ -157,12 +157,27 @@ exports.likeSauce = (req, res, next) => {
 			}
 			//
 			else if (
-				req.body.like == 1
+				req.body.like == -1
 				// && sauce.usersLiked.includes(req.body.userId) == true
 			) {
-				console.log("déjà liké");
+				sauce.usersDisliked.push(req.body.userId);
+				sauce.dislikes = sauce.usersDisliked.length;
+				if (sauce.usersLiked.includes(req.body.userId) == true) {
+					let indexToDelete = sauce.usersLiked.indexOf(req.body.userId);
+					sauce.usersLiked.splice(indexToDelete, 1);
+					sauce.likes = sauce.usersLiked.length;
+				} else {
+					console.log("pas de like avant un dislike");
+				}
+				sauce
+					.save()
+					//save returns a promise --> then ... catch
+					.then(() => res.status(201).json({ message: "like dislike ok" }))
+					// !!response to the front necessary else the request would expire
+					.catch((error) => res.status(400).json({ error: error }));
 			}
 			//
+			/*
 			else if (
 				req.body.like == -1 &&
 				sauce.usersDisliked.includes(req.body.userId) == false
@@ -188,13 +203,16 @@ exports.likeSauce = (req, res, next) => {
 				console.log("déjà disliké");
 			}
 			//
+			*/
 			else if (req.body.like == 0) {
 				if (sauce.usersDisliked.includes(req.body.userId) == true) {
-					let indexToDelete = sauce.usersDisliked.IndexOf(req.body.userId);
+					let indexToDelete = sauce.usersDisliked.indexOf(req.body.userId);
 					sauce.usersDisliked.splice(indexToDelete, 1);
+					sauce.dislikes = sauce.usersDisliked.length;
 				} else if (sauce.usersLiked.includes(req.body.userId) == true) {
-					let indexToDelete = sauce.usersLiked.IndexOf(req.body.userId);
+					let indexToDelete = sauce.usersLiked.indexOf(req.body.userId);
 					sauce.usersLiked.splice(indexToDelete, 1);
+					sauce.likes = sauce.usersLiked.length;
 				} else {
 				}
 				sauce
