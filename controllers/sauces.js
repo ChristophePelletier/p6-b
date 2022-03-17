@@ -149,15 +149,23 @@ exports.likeSauce = (req, res, next) => {
 				}
 			} else if (
 				req.body.like == -1 &&
-				sauce.usersDisliked.includes(req.body._id) == false
+				sauce.usersDisliked.includes(req.body.userId) == false
 			) {
 				sauce.usersDisliked.push(req.body.userId);
 				if (sauce.usersLiked.includes(req.body.userId) == true) {
 					let indexToDelete = sauce.usersLiked.IndexOf(req.body.userId);
-					sauce.userLiked.splice(indexToDelete, 1);
+					sauce.usersLiked.splice(indexToDelete, 1);
 				} else {
 				}
 			} else if (req.body.like == 0) {
+				if (sauce.usersDisliked.includes(req.body.userId) == true) {
+					let indexToDelete = sauce.usersDisliked.IndexOf(req.body.userId);
+					sauce.userDisliked.splice(indexToDelete, 1);
+				} else if (sauce.usersLiked.includes(req.body.userId) == true) {
+					let indexToDelete = sauce.usersLiked.IndexOf(req.body.userId);
+					sauce.usersLiked.splice(indexToDelete, 1);
+				} else {
+				}
 			}
 			/*
 			console
