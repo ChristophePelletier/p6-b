@@ -133,6 +133,7 @@ likeSauce
 exports.likeSauce = (req, res, next) => {
 	Sauce.findOne({
 		_id: req.params.id,
+		//init step5
 		//req.params refers to items with a ':' in the URL
 	})
 		.then((sauce) => {
