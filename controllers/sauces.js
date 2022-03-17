@@ -231,6 +231,16 @@ exports.updateSauce = (req, res, next) => {
 					.catch((error) => res.status(400).json({ error }));
 				//
 			});
+		} else if (!req.file && sauce.userId == req.auth.userId) {
+			//
+			Sauce.updateOne(
+				//object of comparaison
+				{ _id: req.params.id },
+				//new object
+				{ ...req.body }
+			)
+				.then(() => res.status(200).json({ message: "Sauce modifiée" }))
+				.catch((error) => res.status(400).json({ error }));
 		}
 	});
 	//
