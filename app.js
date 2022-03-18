@@ -9,6 +9,7 @@ dotenv.config();
 //
 const express = require("express");
 const mongoose = require("mongoose");
+const helmet = require("helmet");
 const app = express();
 const userRoutes = require("./routes/user");
 const sauceRoutes = require("./routes/sauces");
@@ -42,7 +43,10 @@ mongoose
 //
 //MIDDLEWARES
 //
+app.use(helmet({ crossOriginResourcePolicy: false }));
+
 app.use(express.json());
+
 // --> must be placed before the JSON requests
 // --> gets all the requests with content-type application/json
 // --> request are available in body

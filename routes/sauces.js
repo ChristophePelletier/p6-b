@@ -3,7 +3,6 @@ const router = express.Router();
 
 const auth = require("../middlewares/auth");
 const multer = require("../middlewares/multer-config");
-
 const sauceCtrl = require("../controllers/sauces");
 
 // !! auth before multer to prevent adding images from unidentified users

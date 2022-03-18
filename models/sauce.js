@@ -1,10 +1,17 @@
 const mongoose = require("mongoose");
+//
 
+//
 // model name : Sauce
 // schema : sauceSchema
 const sauceSchema = mongoose.Schema({
 	userId: { type: String, required: true },
-	name: { type: String, required: true },
+	name: {
+		type: String,
+		required: true,
+		minlength: 2,
+		maxlength: 25,
+	},
 	manufacturer: { type: String, required: true },
 	description: { type: String, required: true },
 	mainPepper: { type: String, required: true },
