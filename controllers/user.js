@@ -3,13 +3,17 @@ const jwt = require("jsonwebtoken");
 //
 const User = require("../models/user");
 
-//SIGNUP
+// SIGNUP
 // POST : /api/auth/signup
 // request email password
 // response message
-
+// crypt the password
+// new instance of the object User -> new User
+// save the new User in the data base
 exports.signup = (req, res, next) => {
 	console.log(" signup req : ", req.body);
+	//hash the password -> 10 "turns" of the algorithm
+	// returns a promise --> hash
 	bcrypt
 		.hash(req.body.password, 10)
 		.then((hash) => {
@@ -19,7 +23,9 @@ exports.signup = (req, res, next) => {
 			});
 			user
 				.save()
-				.then(() => res.status(201).json({ message: "Utilisateur créé" }))
+				.then(() =>
+					res.status(201).json({ message: "Contributeur de sauces bien créé" })
+				)
 				.catch((error) => res.status(400).json({ error }));
 		})
 
@@ -42,21 +48,25 @@ exports.login = (req, res, next) => {
 				return res.status(401).json({ error: "Utilisateur non trouvé" });
 			}
 			bcrypt
+				// compare the req.body.password and the user.password in the data base
 				.compare(req.body.password, user.password)
 				.then((valid) => {
 					if (!valid) {
 						console.log("erreur");
 						return res
 							.status(401)
-							.json({ error: "Le mot de passe est incorrect" });
+							.json({ error: "Le mot de passe saisi est incorrect" });
 					}
 					res.status(200).json({
 						userId: user._id,
-						// sign function : --> 3 arguments / 1: datas to endode in the token (payload) / 2 : secret key / 3 : time
+						// jwt -> sign function : --> 3 arguments
+						// 1: datas to endode in the token (payload)
+						// 2 : secret key
+						// 3 : time
 						token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
 							expiresIn: "1h",
 						}),
-						//OK Request headers : Bearer user._id crypted
+						// OK Request headers : Bearer user._id crypted
 					});
 				})
 				.catch((error) => res.status(500).json({ error }));

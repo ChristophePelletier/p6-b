@@ -2,8 +2,9 @@ const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
 	try {
-		const token = req.headers.authorization.split(" ")[1];
+		//we get the authorization in the req.headers and get the token
 		// array [bearer token(crypted)] --> we get the token
+		const token = req.headers.authorization.split(" ")[1];
 		const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
 		const userId = decodedToken.userId;
 		// prevent delete object from someone else
