@@ -136,13 +136,13 @@ exports.likeSauce = (req, res, next) => {
 	})
 		.then((sauce) => {
 			if (
-				req.body.like == 1
-
-				// && sauce.usersLiked.includes(req.body.userId) == false
+				req.body.like == 1 &&
+				sauce.usersLiked.includes(req.body.userId) == false
 			) {
 				console.log("req.body :", req.body);
 				sauce.usersLiked.push(req.body.userId);
 				sauce.likes = sauce.usersLiked.length;
+				/*
 				if (sauce.usersDisliked.includes(req.body.userId) == true) {
 					let indexToDelete = sauce.usersDisliked.indexOf(req.body.userId);
 					sauce.usersDisliked.splice(indexToDelete, 1);
@@ -150,6 +150,7 @@ exports.likeSauce = (req, res, next) => {
 				} else {
 					console.log("pas de dislike avant un like");
 				}
+				*/
 				sauce
 					.save()
 					//save returns a promise --> then ... catch
@@ -159,12 +160,13 @@ exports.likeSauce = (req, res, next) => {
 			}
 			//
 			else if (
-				req.body.like == -1
-				// && sauce.usersLiked.includes(req.body.userId) == true
+				req.body.like == -1 &&
+				sauce.usersLiked.includes(req.body.userId) == false
 			) {
 				console.log("req.body :", req.body);
 				sauce.usersDisliked.push(req.body.userId);
 				sauce.dislikes = sauce.usersDisliked.length;
+				/*
 				if (sauce.usersLiked.includes(req.body.userId) == true) {
 					let indexToDelete = sauce.usersLiked.indexOf(req.body.userId);
 					sauce.usersLiked.splice(indexToDelete, 1);
@@ -172,6 +174,7 @@ exports.likeSauce = (req, res, next) => {
 				} else {
 					console.log("pas de like avant un dislike");
 				}
+				*/
 				sauce
 					.save()
 					//save returns a promise --> then ... catch
@@ -209,16 +212,17 @@ exports.likeSauce = (req, res, next) => {
 			*/
 			else if (req.body.like == 0) {
 				if (sauce.usersDisliked.includes(req.body.userId) == true) {
-					console.log("req.body :", req.body);
+					console.log("0 Dislike suppr :", req.body);
 					let indexToDelete = sauce.usersDisliked.indexOf(req.body.userId);
 					sauce.usersDisliked.splice(indexToDelete, 1);
 					sauce.dislikes = sauce.usersDisliked.length;
 				} else if (sauce.usersLiked.includes(req.body.userId) == true) {
-					console.log("req.body :", req.body);
+					console.log("0 Like suppr :", req.body);
 					let indexToDelete = sauce.usersLiked.indexOf(req.body.userId);
 					sauce.usersLiked.splice(indexToDelete, 1);
 					sauce.likes = sauce.usersLiked.length;
 				} else {
+					console.log("?", req.body);
 				}
 				sauce
 					.save()
