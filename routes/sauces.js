@@ -4,9 +4,9 @@ const router = express.Router();
 const auth = require("../middlewares/auth");
 const multer = require("../middlewares/multer-config");
 const sauceCtrl = require("../controllers/sauces");
-
+const errorHandler = require("../middlewares/errorhandler.js");
 // !! auth before multer to prevent adding images from unidentified users
-router.post("/", auth, multer, sauceCtrl.createSauce);
+router.post("/", auth, multer, sauceCtrl.createSauce, errorHandler);
 router.get("/", auth, sauceCtrl.getAllSauces);
 router.get("/:id", auth, sauceCtrl.getOneSauce);
 router.put("/:id", auth, multer, sauceCtrl.updateSauce);

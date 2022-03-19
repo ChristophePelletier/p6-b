@@ -10,12 +10,14 @@ dotenv.config();
 const express = require("express");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
+
 const app = express();
 const userRoutes = require("./routes/user");
 const sauceRoutes = require("./routes/sauces");
 //for the test only
 // for images -> gets the path of the files --> for the middleware for the images
 const path = require("path");
+//const errorHandler = require("./middlewares/errorhandler.js");
 //
 //CORS / CORS MUST BE PLACE BEFORE THE MIDDLEWAIRES
 //
@@ -57,5 +59,5 @@ app.use("/api/auth", userRoutes);
 app.use("/api/sauces", sauceRoutes);
 //
 app.use("/images", express.static(path.join(__dirname, "images")));
-
+//app.use(errorHandler());
 module.exports = app;

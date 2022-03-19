@@ -11,7 +11,7 @@ const sauceSchema = mongoose.Schema({
 		required: true,
 		minlength: 2,
 		maxlength: 25,
-		match: /MaRegex/,
+		match: [/MaRegex/, "ma regex"],
 	},
 	manufacturer: {
 		type: String,
@@ -24,14 +24,37 @@ const sauceSchema = mongoose.Schema({
 		},
 		required: [true, "manufacturer requis"],
 	},
-	description: { type: String, required: true },
-	mainPepper: { type: String, required: true },
-	imageUrl: { type: String, required: true },
-	heat: { type: Number, String, required: true },
-	likes: { type: Number, default: 0 },
-	dislikes: { type: Number, default: 0 },
-	usersLiked: { type: Array, default: [] },
-	usersDisliked: { type: Array, default: [] },
+	description: {
+		type: String,
+		required: [true, "description requise"],
+	},
+	mainPepper: {
+		type: String,
+		required: [true, "mainPepper requis"],
+	},
+	imageUrl: {
+		type: String,
+		required: [true, "image requise"],
+	},
+	heat: {
+		type: Number,
+		required: [true, "heat requise"],
+	},
+	likes: {
+		type: Number,
+		default: 0,
+	},
+	dislikes: {
+		type: Number,
+		default: 0,
+	},
+	usersLiked: {
+		type: Array,
+		default: [],
+	},
+	usersDisliked: {
+		type: Array,
+		default: [],
+	},
 });
-
 module.exports = mongoose.model("Sauce", sauceSchema);

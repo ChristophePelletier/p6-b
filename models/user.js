@@ -16,14 +16,21 @@ const userSchema = mongoose.Schema({
 		required: true,
 		validate: {
 			validator: function (v) {
-				return /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(v);
+				return /^[A-Z]$/.test(v);
 			},
 			message: (props) => `${props.value} pas un email correct`,
 		},
 		unique: true,
 	},
 	//ok impossible to  sign up with the same email more than one time
-	password: { type: String, required: true },
+	password: {
+		type: String,
+		required: true,
+		validator: function (v) {
+			return /^[A-Z]$/.test(v);
+		},
+		message: (props) => `${props.value} pas un password correct`,
+	},
 	// the password will be a hash --> the hash is a string too
 });
 
