@@ -79,6 +79,8 @@ exports.deleteSauce = (req, res, next) => {
 			const filename = sauce.imageUrl.split("/images/")[1];
 			// we split before and after "images" and get the second part
 			//
+			//fs.unlink(path, callback) ---->  callback function(error)
+			//err == null if the file has correctyl been deleted
 			//second argument of unlink : the callback
 			fs.unlink(`images/${filename}`, () => {
 				Sauce.deleteOne({ _id: req.params.id })
