@@ -11,7 +11,17 @@ This makes error handling much easier, since you will get a Mongoose validation 
 // schema : userSchema
 
 const userSchema = mongoose.Schema({
-	email: { type: String, required: true, unique: true },
+	email: {
+		type: String,
+		required: true,
+		validate: {
+			validator: function (v) {
+				return /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(v);
+			},
+			message: (props) => `${props.value} pas un email correct`,
+		},
+		unique: true,
+	},
 	//ok impossible to  sign up with the same email more than one time
 	password: { type: String, required: true },
 	// the password will be a hash --> the hash is a string too

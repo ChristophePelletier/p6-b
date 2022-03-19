@@ -13,7 +13,17 @@ const sauceSchema = mongoose.Schema({
 		maxlength: 25,
 		match: /MaRegex/,
 	},
-	manufacturer: { type: String, required: [true, "manufacturer requis"] },
+	manufacturer: {
+		type: String,
+		// if the validation is violated, it will throw
+		validate: {
+			validator: function (v) {
+				return /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(v);
+			},
+			message: (props) => `${props.value} pas un email correct`,
+		},
+		required: [true, "manufacturer requis"],
+	},
 	description: { type: String, required: true },
 	mainPepper: { type: String, required: true },
 	imageUrl: { type: String, required: true },
