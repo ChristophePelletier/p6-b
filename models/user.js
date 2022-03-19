@@ -16,7 +16,7 @@ const userSchema = mongoose.Schema({
 		required: true,
 		validate: {
 			validator: function (v) {
-				return /^[A-Z]$/.test(v);
+				return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
 			},
 			message: (props) => `${props.value} pas un email correct`,
 		},
@@ -26,10 +26,12 @@ const userSchema = mongoose.Schema({
 	password: {
 		type: String,
 		required: true,
+		/*
 		validator: function (v) {
 			return /^[A-Z]$/.test(v);
 		},
 		message: (props) => `${props.value} pas un password correct`,
+		*/
 	},
 	// the password will be a hash --> the hash is a string too
 });
