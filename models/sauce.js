@@ -18,7 +18,7 @@ const sauceSchema = mongoose.Schema({
 		// if the validation is violated, it will throw
 		validate: {
 			validator: function (value) {
-				return /^[A-Z]$/.test(value)
+				return /[A-Z]/.test(value)
 			},
 			message: (props) => `${props.value} : nom de manufacturer incorrect`,
 		},

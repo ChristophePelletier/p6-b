@@ -9,16 +9,17 @@ dotenv.config()
 //
 const express = require('express')
 const mongoose = require('mongoose')
-const helmet = require('helmet')
+//const helmet = require('helmet')
 
 const app = express()
 //our express app
+//const apiLimiter = require('./middlewares/rate-limit.js')
 const userRoutes = require('./routes/user')
 const sauceRoutes = require('./routes/sauces')
 //for the test only
 // for images -> gets the path of the files --> for the middleware for the images
 const path = require('path')
-const errorHandler = require('./middlewares/errorhandler.js')
+//const errorHandler = require('./middlewares/errorhandler.js')
 //
 //CORS / CORS MUST BE PLACE BEFORE THE MIDDLEWAIRES
 //
@@ -46,7 +47,7 @@ mongoose
 //
 //MIDDLEWARES
 //
-app.use(helmet({ crossOriginResourcePolicy: false }))
+//app.use(helmet({ crossOriginResourcePolicy: false }))
 
 app.use(express.json())
 
@@ -56,10 +57,11 @@ app.use(express.json())
 // --> req.body
 
 //
+//app.use('/api', apiLimiter)
 app.use('/api/auth', userRoutes)
 app.use('/api/sauces', sauceRoutes)
 //
 app.use('/images', express.static(path.join(__dirname, 'images')))
-app.use(errorHandler())
+//app.use(errorHandler())
 // export the app -> access from server.js / ...
 module.exports = app
