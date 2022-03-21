@@ -5,10 +5,10 @@ module.exports = (req, res, next) => {
 		let pass = req.body.password
 		//
 		if (Password.validate(pass) == false) {
-			console.log('pb')
-			throw 'pb'
+			console.log('Le password ne répond pas aux critères de sécurité')
+			throw 'Le password ne répond pas aux critères de sécurité'
 		} else {
-			console.log('ok pass')
+			console.log('ok pass assez complexe')
 			next()
 		}
 	} catch {
