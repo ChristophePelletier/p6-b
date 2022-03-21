@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 //
 
 //
@@ -10,37 +10,37 @@ const sauceSchema = mongoose.Schema({
 		type: String,
 		required: true,
 		minlength: 2,
-		maxlength: 25,
-		//match: [/MaRegex/, "ma regex"],
+		maxlength: 100,
+		match: [/[a-zA-Z]/, 'Problème dans la saisie du nom de la sauce'],
 	},
 	manufacturer: {
 		type: String,
 		// if the validation is violated, it will throw
-		/*
 		validate: {
-			validator: function (v) {
-				return /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(v);
+			validator: function (value) {
+				return /^[A-Z]$/.test(value)
 			},
-			message: (props) => `${props.value} pas un email correct`,
-			
-		},*/
-		required: [true, "manufacturer requis"],
+			message: (props) => `${props.value} : nom de manufacturer incorrect`,
+		},
+		required: [true, 'manufacturer requis'],
 	},
 	description: {
 		type: String,
-		required: [true, "description requise"],
+		required: [true, 'description requise'],
 	},
 	mainPepper: {
 		type: String,
-		required: [true, "mainPepper requis"],
+		required: [true, 'mainPepper requis'],
 	},
 	imageUrl: {
 		type: String,
-		required: [true, "image requise"],
+		required: [true, 'image requise'],
 	},
 	heat: {
 		type: Number,
-		required: [true, "heat requise"],
+		required: [true, 'heat requise'],
+		min: [1, 'Min : {VALUE}'],
+		max: [10, 'Max : {VALUE}'],
 	},
 	likes: {
 		type: Number,
@@ -58,5 +58,5 @@ const sauceSchema = mongoose.Schema({
 		type: Array,
 		default: [],
 	},
-});
-module.exports = mongoose.model("Sauce", sauceSchema);
+})
+module.exports = mongoose.model('Sauce', sauceSchema)

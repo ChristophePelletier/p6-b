@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
+const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
 /*
 mongoose-unique-validator
 https://www.npmjs.com/package/mongoose-unique-validator
@@ -16,7 +16,7 @@ const userSchema = mongoose.Schema({
 		required: true,
 		validate: {
 			validator: function (v) {
-				return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
+				return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v)
 			},
 			message: (props) => `${props.value} pas un email correct`,
 		},
@@ -34,10 +34,10 @@ const userSchema = mongoose.Schema({
 		*/
 	},
 	// the password will be a hash --> the hash is a string too
-});
+})
 
 // we apply the validator to the Schema before making the model
 // with the method plugin --> argument : uniqueValidator
-userSchema.plugin(uniqueValidator);
+userSchema.plugin(uniqueValidator)
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model('User', userSchema)
