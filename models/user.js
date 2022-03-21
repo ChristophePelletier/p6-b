@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
+//const passwordValidator = require('../middlewares/password')
 /*
 mongoose-unique-validator
 https://www.npmjs.com/package/mongoose-unique-validator
@@ -26,6 +27,7 @@ const userSchema = mongoose.Schema({
 	password: {
 		type: String,
 		required: true,
+		//validPass,
 		/*
 		validator: function (v) {
 			return /^[A-Z]$/.test(v);
