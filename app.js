@@ -10,7 +10,8 @@ dotenv.config()
 const express = require('express')
 const mongoose = require('mongoose')
 const helmet = require('helmet')
-
+const bodyParser = require('body-parser')
+const mongoSanitize = require('express-mongo-sanitize')
 const app = express()
 //our express app
 //const apiLimiter = require('./middlewares/rate-limit.js')
@@ -58,9 +59,17 @@ app.use(express.json())
 
 //
 //app.use('/api', apiLimiter)
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+
+app.use(
+	mongoSanitize({
+		replaceWith: '_',
+	})
+)
 app.use('/api/auth', userRoutes)
 app.use('/api/sauces', sauceRoutes)
-//
+
 app.use('/images', express.static(path.join(__dirname, 'images')))
 //app.use(errorHandler())
 // export the app -> access from server.js / ...
