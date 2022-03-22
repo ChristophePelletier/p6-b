@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { body, validationResult } = require('express-validator')
 //
 
 //
@@ -11,17 +12,25 @@ const sauceSchema = mongoose.Schema({
 		required: true,
 		minlength: 2,
 		maxlength: 100,
-		match: [/[a-zA-Z]/, 'Problème dans la saisie du nom de la sauce'],
+		/*
+		match: [
+			/^[a-zA-ZàèùÀÈÙéÉâêîûÂÊïüçÇæœ]{1,20}[\\s-]?[a-zA-ZàèùÀÈÙéÉâêîûÂÊïüçÇæœ]{0,20}[\\s-]?[a-zA-ZàèùÀÈÙéÉâêîûÂÊïüçÇæœ]{0,20}[\\s-]?[a-zA-ZàèùÀÈÙéÉâêîûÂÊÎÛïüçÇæœ]{0,20}$/,
+			'Problème dans la saisie du nom de la sauce',
+		],*/
 	},
 	manufacturer: {
 		type: String,
 		// if the validation is violated, it will throw
+		/*
 		validate: {
 			validator: function (value) {
-				return /[A-Z]/.test(value)
+				return /^[a-zA-ZàèùÀÈÙéÉâêîûÂÊïüçÇæœ]{1,20}[\\s-]?[a-zA-ZàèùÀÈÙéÉâêîûÂÊïüçÇæœ]{0,20}[\\s-]?[a-zA-ZàèùÀÈÙéÉâêîûÂÊïüçÇæœ]{0,20}[\\s-]?[a-zA-ZàèùÀÈÙéÉâêîûÂÊÎÛïüçÇæœ]{0,20}$/.test(
+					value
+				)
 			},
 			message: (props) => `${props.value} : nom de manufacturer incorrect`,
 		},
+		*/
 		required: [true, 'manufacturer requis'],
 	},
 	description: {

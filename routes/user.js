@@ -3,11 +3,11 @@ const router = express.Router()
 
 const userCtrl = require('../controllers/user')
 
-const ratelimit = require('../middlewares/rate-limit')
-const Password = require('../middlewares/password')
+const rateLimit = require('../middlewares/rate-limit')
+const password = require('../middlewares/password')
 
 //
-router.post('/signup', Password, userCtrl.signup)
-router.post('/login', ratelimit, userCtrl.login)
+router.post('/signup', password, userCtrl.signup)
+router.post('/login', rateLimit, userCtrl.login)
 
 module.exports = router

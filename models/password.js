@@ -6,7 +6,7 @@ let schemaPassword = new passwordValidator()
 // Add properties to it
 schemaPassword
 	.is()
-	.min(6) // Minimum length 8
+	.min(2) // Minimum length 8
 	.is()
 	.max(100) // Maximum length 100
 //.has()
