@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { body, validationResult } = require('express-validator')
+
 //
 // model name : Sauce
 // schema : sauceSchema
@@ -18,6 +18,7 @@ const sauceSchema = mongoose.Schema({
 	},
 	manufacturer: {
 		type: String,
+		/*
 		validate: {
 			validator: function (value) {
 				return /^[a-zA-ZàèùÀÈÙéÉâêîûÂÊïüçÇæœ]{1,20}[\\s-]?[a-zA-ZàèùÀÈÙéÉâêîûÂÊïüçÇæœ]{0,20}[\\s-]?[a-zA-ZàèùÀÈÙéÉâêîûÂÊïüçÇæœ]{0,20}[\\s-]?[a-zA-ZàèùÀÈÙéÉâêîûÂÊÎÛïüçÇæœ]{0,20}$/.test(
@@ -26,11 +27,13 @@ const sauceSchema = mongoose.Schema({
 			},
 			message: (props) => `${props.value} : nom de manufacturer incorrect`,
 		},
+		*/
 		required: [true, 'manufacturer requis'],
 	},
 	description: {
 		type: String,
 		required: [true, 'description requise'],
+		/*
 		validate: {
 			validator: function (value) {
 				return /^[a-zA-ZàèùÀÈÙéÉâêîûÂÊïüçÇæœ]{1,20}[\\s-]?[a-zA-ZàèùÀÈÙéÉâêîûÂÊïüçÇæœ]{0,20}[\\s-]?[a-zA-ZàèùÀÈÙéÉâêîûÂÊïüçÇæœ]{0,20}[\\s-]?[a-zA-ZàèùÀÈÙéÉâêîûÂÊÎÛïüçÇæœ]{0,20}$/.test(
@@ -39,10 +42,12 @@ const sauceSchema = mongoose.Schema({
 			},
 			message: (props) => `${props.value} : nom de manufacturer incorrect`,
 		},
+		*/
 	},
 	mainPepper: {
 		type: String,
 		required: [true, 'mainPepper requis'],
+		/*
 		validate: {
 			validator: function (value) {
 				return /^[a-zA-ZàèùÀÈÙéÉâêîûÂÊïüçÇæœ]{1,20}[\\s-]?[a-zA-ZàèùÀÈÙéÉâêîûÂÊïüçÇæœ]{0,20}[\\s-]?$/.test(
@@ -51,6 +56,7 @@ const sauceSchema = mongoose.Schema({
 			},
 			message: (props) => `${props.value} : nom de manufacturer incorrect`,
 		},
+		*/
 	},
 	imageUrl: {
 		type: String,
