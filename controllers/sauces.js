@@ -1,6 +1,6 @@
 const Sauce = require('../models/sauce')
 const fs = require('fs')
-//var sanitize = require('mongo-sanitize');
+//const sanitize = require('mongo-sanitize');
 
 //const sanitize = require('../middlewares/sanitize')
 /*
@@ -153,14 +153,15 @@ exports.likeSauce = (req, res, next) => {
 					sauce.dislikes = sauce.usersDisliked.length
 				} else {
 					console.log('pas de dislike avant un like')
+					res.status(400).json({ error: 'like / dislike impossible' })
 				}
 				//
 				sauce
 					.save()
 					//save returns a promise --> then ... catch
-					.then(() => res.status(201).json({ message: 'like dislike ok' }))
+					.then(() => res.status(201).json({ message: 'like ok' }))
 					// !!response to the front necessary else the request would expire
-					.catch((error) => res.status(400).json({ error: error }))
+					.catch((error) => res.status(400).json({ error }))
 			}
 			//
 			else if (
@@ -178,12 +179,13 @@ exports.likeSauce = (req, res, next) => {
 					sauce.likes = sauce.usersLiked.length
 				} else {
 					console.log('pas de like avant un dislike')
+					res.status(400).json({ error: 'like / dislike impossible' })
 				}
 				//
 				sauce
 					.save()
 					//save returns a promise --> then ... catch
-					.then(() => res.status(201).json({ message: 'like dislike ok' }))
+					.then(() => res.status(201).json({ message: 'dislike ok' }))
 					// !!response to the front necessary else the request would expire
 					.catch((error) => res.status(400).json({ error: error }))
 			}
@@ -228,13 +230,19 @@ exports.likeSauce = (req, res, next) => {
 					sauce.likes = sauce.usersLiked.length
 				} else {
 					console.log('?', req.body)
+					res.status(400).json({ error: 'like / dislike impossible' })
 				}
 				sauce
 					.save()
 					//save returns a promise --> then ... catch
-					.then(() => res.status(201).json({ message: 'like dislike ok' }))
+					.then(() =>
+						res.status(201).json({ message: 'cancel like dislike ok' })
+					)
 					// !!response to the front necessary else the request would expire
 					.catch((error) => res.status(400).json({ error: error }))
+			} else {
+				console.log('erreur', req.body)
+				res.status(400).json({ error: 'like / dislike impossible' })
 			}
 		})
 

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
-const { body, validationResult } = require('express-validator')
-//
+
 
 //
 // model name : Sauce

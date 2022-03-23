@@ -69,7 +69,9 @@ app.use(
 )
 app.use('/api/auth', userRoutes)
 app.use('/api/sauces', sauceRoutes)
-
+app.post('/test', function(req, res) {
+	res.send('hello world');
+  });
 app.use('/images', express.static(path.join(__dirname, 'images')))
 //app.use(errorHandler())
 // export the app -> access from server.js / ...
