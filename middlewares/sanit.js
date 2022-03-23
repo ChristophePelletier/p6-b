@@ -1,11 +1,11 @@
 module.exports = (req, res, next) => {
 	try {
-		let re = /t/
+		//let re = '$'
 		let sauceObject = JSON.parse(req.body.sauce)
 		console.log('sauceObject : ', sauceObject)
 		console.log('req.body.sauce : ', req.body.sauce)
 		console.log('sauceObject.name :', sauceObject.name)
-		let maj = sauceObject.name.replace(re, 'chris')
+		let maj = sauceObject.name.replace(/\$/g, 'chris')
 		sauceObject.name = maj
 		console.log('sauceObject.name updated :', sauceObject.name)
 		console.log(req.body.sauce.name)
