@@ -12,9 +12,13 @@ const mongoose = require('mongoose')
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
 const mongoSanitize = require('express-mongo-sanitize')
+
 const app = express()
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+
 //our express app
-//const apiLimiter = require('./middlewares/rate-limit.js')
+const apiLimiter = require('./middlewares/rate-limit.js')
 const userRoutes = require('./routes/user')
 const sauceRoutes = require('./routes/sauces')
 //for the test only
@@ -58,21 +62,25 @@ app.use(express.json())
 // --> req.body
 
 //
-//app.use('/api', apiLimiter)
+app.use('/api', apiLimiter)
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-app.use(
-	mongoSanitize({
-		replaceWith: '_',
-	})
-)
 app.use('/api/auth', userRoutes)
 app.use('/api/sauces', sauceRoutes)
-app.post('/test', function(req, res) {
-	res.send('hello world');
-  });
+app.post('/test', function (req, res) {
+	res.send('hello world')
+})
+
+app.post('/api/test2', (req, res, next) => {
+	console.log(req.body)
+	res.status(201).json({
+		message: 'Sauce créée',
+	})
+})
+
 app.use('/images', express.static(path.join(__dirname, 'images')))
+app.use(mongoSanitize())
 //app.use(errorHandler())
 // export the app -> access from server.js / ...
 module.exports = app

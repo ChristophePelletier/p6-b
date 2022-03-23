@@ -1,4 +1,4 @@
-let sanitize = require('mongo-sanitize')
+let sanitize = require('express-mongo-sanitize')
 
 let clean = sanitize(req.body)
 
