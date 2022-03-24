@@ -11,7 +11,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
-const mongoSanitize = require('express-mongo-sanitize')
+//const mongoSanitize = require('express-mongo-sanitize')
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -80,7 +80,7 @@ app.post('/api/test2', (req, res, next) => {
 })
 
 app.use('/images', express.static(path.join(__dirname, 'images')))
-app.use(mongoSanitize())
+//app.use(mongoSanitize())
 //app.use(errorHandler())
 // export the app -> access from server.js / ...
 module.exports = app

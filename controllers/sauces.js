@@ -1,14 +1,12 @@
 const Sauce = require('../models/sauce')
 const fs = require('fs')
-//const sanitize = require('mongo-sanitize');
 
-//const sanitize = require('../middlewares/sanitize')
-/*
+/**
 createSauce
 */
 exports.createSauce = (req, res, next) => {
+	// get the object
 	const sauceObject = JSON.parse(req.body.sauce)
-	// we must get  the object
 	delete sauceObject._id
 	const sauce = new Sauce({
 		...sauceObject,
@@ -25,7 +23,7 @@ exports.createSauce = (req, res, next) => {
 		.catch((error) => res.status(400).json({ error: error }))
 }
 
-/*
+/**
 getAllSauces
 */
 exports.getAllSauces = (req, res, next) => {
@@ -40,7 +38,7 @@ exports.getAllSauces = (req, res, next) => {
 		})
 }
 
-/*
+/**
 getOneSauce
 */
 exports.getOneSauce = (req, res, next) => {
@@ -57,7 +55,7 @@ exports.getOneSauce = (req, res, next) => {
 		})
 }
 
-/*
+/**
 deleteSauce
 */
 exports.deleteSauce = (req, res, next) => {
@@ -82,7 +80,7 @@ exports.deleteSauce = (req, res, next) => {
 			// we split before and after "images" and get the second part
 			//
 			//fs.unlink(path, callback) ---->  callback function(error)
-			//err == null if the file has correctyl been deleted
+			//err == null if the file has correctly been deleted
 			//second argument of unlink : the callback
 			fs.unlink(`images/${filename}`, () => {
 				Sauce.deleteOne({ _id: req.params.id })
@@ -92,7 +90,9 @@ exports.deleteSauce = (req, res, next) => {
 		})
 	})
 }
-
+/**
+ updateSauce
+ */
 exports.updateSauce = (req, res, next) => {
 	//
 	Sauce.findOne({ _id: req.params.id }).then((sauce) => {
@@ -130,7 +130,7 @@ exports.updateSauce = (req, res, next) => {
 	//
 }
 
-/*
+/**
 likeSauce
 */
 exports.likeSauce = (req, res, next) => {
@@ -138,13 +138,18 @@ exports.likeSauce = (req, res, next) => {
 		_id: req.params.id,
 	})
 		.then((sauce) => {
+			//usersLiked
 			if (
-				//usersLiked
 				req.body.like == 1 &&
 				sauce.usersLiked.includes(req.body.userId) == false
+				//we prevent a user to like the sauce more than one
+				//by checking in the usersLiked array
+				//that the user is not in it
 			) {
 				console.log('req.body :', req.body)
+				//push in the usersLiked array the Id of the user
 				sauce.usersLiked.push(req.body.userId)
+				//the number of likes is the length of the array
 				sauce.likes = sauce.usersLiked.length
 				//
 				if (sauce.usersDisliked.includes(req.body.userId) == true) {
@@ -153,7 +158,6 @@ exports.likeSauce = (req, res, next) => {
 					sauce.dislikes = sauce.usersDisliked.length
 				} else {
 					console.log('pas de dislike avant un like')
-					res.status(400).json({ error: 'like / dislike impossible' })
 				}
 				//
 				sauce
@@ -164,8 +168,9 @@ exports.likeSauce = (req, res, next) => {
 					.catch((error) => res.status(400).json({ error }))
 			}
 			//
+			//usersDisliked
+			//same logic as usersLiked
 			else if (
-				//usersDisliked
 				req.body.like == -1 &&
 				sauce.usersDisliked.includes(req.body.userId) == false
 			) {
@@ -179,7 +184,6 @@ exports.likeSauce = (req, res, next) => {
 					sauce.likes = sauce.usersLiked.length
 				} else {
 					console.log('pas de like avant un dislike')
-					res.status(400).json({ error: 'like / dislike impossible' })
 				}
 				//
 				sauce
@@ -189,41 +193,17 @@ exports.likeSauce = (req, res, next) => {
 					// !!response to the front necessary else the request would expire
 					.catch((error) => res.status(400).json({ error: error }))
 			}
-			//
-			/*
-			else if (
-				req.body.like == -1 &&
-				sauce.usersDisliked.includes(req.body.userId) == false
-			) {
-				sauce.usersDisliked.push(req.body.userId);
-				if (sauce.usersLiked.includes(req.body.userId) == true) {
-					let indexToDelete = sauce.usersLiked.IndexOf(req.body.userId);
-					sauce.usersLiked.splice(indexToDelete, 1);
-				} else {
-				}
-				sauce
-					.save()
-					//save returns a promise --> then ... catch
-					.then(() => res.status(201).json({ message: "like dislike ok" }))
-					// !!response to the front necessary else the request would expire
-					.catch((error) => res.status(400).json({ error: error }));
-			}
-			//
-			else if (
-				req.body.like == -1 &&
-				sauce.usersDisliked.includes(req.body.userId) == true
-			) {
-				console.log("déjà disliké");
-			}
-			//
-			*/
+			//cancel like or dislike
 			else if (req.body.like == 0) {
+				//case 1 : for a user who disliked the sauce
 				if (sauce.usersDisliked.includes(req.body.userId) == true) {
 					console.log('0 Dislike suppr :', req.body)
 					let indexToDelete = sauce.usersDisliked.indexOf(req.body.userId)
 					sauce.usersDisliked.splice(indexToDelete, 1)
 					sauce.dislikes = sauce.usersDisliked.length
-				} else if (sauce.usersLiked.includes(req.body.userId) == true) {
+				}
+				//case 2 : for a user who liked the sauce
+				else if (sauce.usersLiked.includes(req.body.userId) == true) {
 					console.log('0 Like suppr :', req.body)
 					let indexToDelete = sauce.usersLiked.indexOf(req.body.userId)
 					sauce.usersLiked.splice(indexToDelete, 1)
