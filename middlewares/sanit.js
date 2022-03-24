@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
 		//console.log('sauceObject : ', sauceObject)
 		//console.log('req.body.sauce : ', req.body.sauce)
 		//console.log('sauceObject.name :', sauceObject.name)
-		let majName = sauceObject.name.replace(/\$|t/g, '_')
+		let majName = sauceObject.name.replace(/\$|./g, '_')
 		sauceObject.name = majName
 		let majManufacturer = sauceObject.manufacturer.replace(/\$/g, '_')
 		sauceObject.manufacturer = majManufacturer
