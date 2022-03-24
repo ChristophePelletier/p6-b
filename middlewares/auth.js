@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
-
+const dotenv = require('dotenv')
+dotenv.config()
 module.exports = (req, res, next) => {
 	try {
 		//we get the authorization in the req.headers and get the token
@@ -22,9 +23,8 @@ module.exports = (req, res, next) => {
 			next()
 		}
 	} catch {
-		//
 		//specifications :
-		//"S"i l'userId ne correspond pas, renvoyer « 403: unauthorized request. »"
+		//"Si l'userId ne correspond pas, renvoyer « 403: unauthorized request. »"
 		res.status(403)
 		res.send({ errorCode: '403: unauthorized request' })
 		//res.status(403).json({
