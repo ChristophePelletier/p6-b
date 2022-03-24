@@ -56,41 +56,6 @@ exports.getOneSauce = (req, res, next) => {
 }
 
 /**
-deleteSauce
-*/
-exports.deleteSauce = (req, res, next) => {
-	// ! id de la sauce but not id of the user --> security to adapt
-	Sauce.findOne({ _id: req.params.id }).then((sauce) => {
-		if (!sauce) {
-			res.status(404).json({
-				error: new Error('No such Thing!'),
-			})
-		}
-		// ! only the user who sent the sauce can delete the sauce
-		if (sauce.userId !== req.auth.userId) {
-			res.status(400).json({
-				error: new Error('Unauthorized request!'),
-			})
-		}
-		//
-
-		//
-		Sauce.findOne({ _id: req.params.id }).then((sauce) => {
-			const filename = sauce.imageUrl.split('/images/')[1]
-			// we split before and after "images" and get the second part
-			//
-			//fs.unlink(path, callback) ---->  callback function(error)
-			//err == null if the file has correctly been deleted
-			//second argument of unlink : the callback
-			fs.unlink(`images/${filename}`, () => {
-				Sauce.deleteOne({ _id: req.params.id })
-					.then(() => res.status(200).json({ message: 'Sauce supprimée !' }))
-					.catch((error) => res.status(400).json({ error }))
-			})
-		})
-	})
-}
-/**
  updateSauce
  */
 exports.updateSauce = (req, res, next) => {
@@ -130,7 +95,33 @@ exports.updateSauce = (req, res, next) => {
 	})
 	//
 }
-
+/*
+exports.deleteSauce = (req, res, next) => {
+	Sauce.findOne({ _id: req.params.id }).then((sauce) => {
+		if (!sauce) {
+			res.status(404).json({
+				error: new Error('No sauce'),
+			})
+		}
+		if (sauce.userId !== req.auth.userId) {
+			console.log('non non non autorisé')
+			// !!!
+			return res.status(401).json({ error: new Error('requête non autorisée') })
+		}
+		Sauce.deleteOne({ _id: req.params.id })
+			.then(() => {
+				res.status(200).json({
+					message: 'Sauce supprimée',
+				})
+			})
+			.catch((error) => {
+				res.status(400).json({
+					error: error,
+				})
+			})
+	})
+}
+*/
 /**
 likeSauce
 */
@@ -227,6 +218,47 @@ exports.likeSauce = (req, res, next) => {
 			}
 		})
 
+		.catch((error) => {
+			res.status(404).json({
+				error: error,
+			})
+		})
+}
+
+exports.deleteSauce = (req, res, next) => {
+	// ! id de la sauce but not id of the user --> security to adapt
+	Sauce.findOne({ _id: req.params.id })
+		.then((sauce) => {
+			if (!sauce) {
+				res.status(404).json({
+					error: new Error('no sauce'),
+				})
+			}
+			// ! only the user who sent the sauce can delete the sauce
+			if (sauce.userId !== req.auth.userId) {
+				console.log('non non non autorisé')
+				// !!!
+				return res
+					.status(401)
+					.json({ error: new Error('requête non autorisée') })
+			}
+			//
+
+			//
+			console.log('sauce.userId :', sauce.userId)
+			console.log('req.auth.userId :', req.auth.userId)
+			const filename = sauce.imageUrl.split('/images/')[1]
+			// we split before and after "images" and get the second part
+			//
+			//fs.unlink(path, callback) ---->  callback function(error)
+			//err == null if the file has correctly been deleted
+			//second argument of unlink : the callback
+			fs.unlink(`images/${filename}`, () => {
+				Sauce.deleteOne({ _id: req.params.id })
+					.then(() => res.status(200).json({ message: 'Sauce supprimée !' }))
+					.catch((error) => res.status(400).json({ error }))
+			})
+		})
 		.catch((error) => {
 			res.status(404).json({
 				error: error,

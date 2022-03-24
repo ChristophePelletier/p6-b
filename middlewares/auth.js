@@ -11,7 +11,8 @@ module.exports = (req, res, next) => {
 		//req.userId = userId;
 		//
 		// we add to the request object the userId --> for the delete function
-		req.auth = { userId: userId }
+		req.auth = { userId }
+		//req.auth = { userId: userId }
 		//
 		if (req.body.userId && req.body.userId !== userId) {
 			console.log('Middleware auth : erreur vérif token')
