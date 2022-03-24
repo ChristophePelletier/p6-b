@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
 			console.log('sauceObject : ', sauceObject)
 			console.log('req.body.sauce : ', req.body.sauce)
 			console.log('sauceObject.name :', sauceObject.name)
-			let maj = sauceObject.name.replace(/\$/g, '_')
+			let maj = sauceObject.name.replace(/\$|\./g, '_')
 			sauceObject.name = maj
 			console.log('sauceObject.name updated :', sauceObject.name)
 			console.log(req.body.sauce.name)
@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
 			next()
 		} else if (!req.file && sauce.userId == req.auth.userId) {
 			console.log(req.body)
-			let maj = req.body.name.replace(/\$/g, '_')
+			let maj = req.body.name.replace(/\$|\./g, '_')
 			req.body.name = maj
 			console.log(req.body.name)
 			//req.body.sauce = JSON.stringify(sauceObject)
