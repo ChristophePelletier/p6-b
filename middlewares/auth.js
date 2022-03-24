@@ -24,8 +24,10 @@ module.exports = (req, res, next) => {
 		//
 		//specifications :
 		//"S"i l'userId ne correspond pas, renvoyer « 403: unauthorized request. »"
-		res.status(403).json({
-			error: new Error('unauthorized request'),
-		})
+		res.status(403)
+		res.send({ errorCode: '403: unauthorized request' })
+		//res.status(403).json({
+		//	error: new Error('unauthorized request'),
+		//})
 	}
 }

@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 //our express app
-const apiLimiter = require('./middlewares/rate-limit.js')
+//const apiLimiter = require('./middlewares/rate-limit.js')
 const userRoutes = require('./routes/user')
 const sauceRoutes = require('./routes/sauces')
 //for the test only
@@ -62,9 +62,9 @@ app.use(express.json())
 // --> req.body
 
 //
-app.use('/api', apiLimiter)
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+//app.use('/api', apiLimiter)
+//app.use(bodyParser.urlencoded({ extended: true }))
+//app.use(bodyParser.json())
 
 app.use('/api/auth', userRoutes)
 app.use('/api/sauces', sauceRoutes)
