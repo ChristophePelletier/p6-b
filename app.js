@@ -81,6 +81,5 @@ app.post('/api/test2', (req, res, next) => {
 
 app.use('/images', express.static(path.join(__dirname, 'images')))
 //app.use(mongoSanitize())
-//app.use(errorHandler())
 // export the app -> access from server.js / ...
 module.exports = app
