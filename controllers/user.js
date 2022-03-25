@@ -65,7 +65,7 @@ exports.login = (req, res, next) => {
 						// 2 : secret key
 						// 3 : time
 						token: jwt.sign({ userId: user._id }, 'RANDOM_TOKEN_SECRET', {
-							expiresIn: '1h',
+							expiresIn: '12h',
 						}),
 						// OK Request headers : Bearer user._id crypted
 					})

@@ -59,6 +59,8 @@ module.exports = (req, res, next) => {
 			//req.body.sauce = JSON.stringify(sauceObject)
 			next()
 			//
+		} else {
+			res.send({ errorCode: '403: unauthorized request' })
 		}
 	})
 	//
