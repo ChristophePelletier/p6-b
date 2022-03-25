@@ -60,39 +60,49 @@ exports.getOneSauce = (req, res, next) => {
  */
 exports.updateSauce = (req, res, next) => {
 	//
-	Sauce.findOne({ _id: req.params.id }).then((sauce) => {
-		if (req.file && sauce.userId == req.auth.userId) {
-			const filename = sauce.imageUrl.split('/images')[1]
-			//we choose to first delete the former file in the image directory
-			fs.unlink(`images/${filename}`, () => {
+	Sauce.findOne({ _id: req.params.id })
+		.then((sauce) => {
+			if (req.file && sauce.userId == req.auth.userId) {
+				const filename = sauce.imageUrl.split('/images')[1]
+				//we choose to first delete the former file in the image directory
+				fs.unlink(`images/${filename}`, () => {
+					//
+					Sauce.updateOne(
+						//object of comparaison
+						{ _id: req.params.id },
+						//new object
+						{
+							...JSON.parse(req.body.sauce),
+							//test test  :
+							//_id: req.params.id,
+
+							imageUrl: `${req.protocol}://${req.get('host')}/images/${
+								req.file.filename
+							}`,
+						}
+					)
+						.then(() => res.status(200).json({ message: 'Sauce modifiée' }))
+						.catch((error) => res.status(400).json({ error }))
+					//
+				})
+			} else if (!req.file && sauce.userId == req.auth.userId) {
 				//
 				Sauce.updateOne(
 					//object of comparaison
 					{ _id: req.params.id },
 					//new object
-					{
-						...JSON.parse(req.body.sauce),
-						imageUrl: `${req.protocol}://${req.get('host')}/images/${
-							req.file.filename
-						}`,
-					}
+					{ ...req.body }
 				)
 					.then(() => res.status(200).json({ message: 'Sauce modifiée' }))
 					.catch((error) => res.status(400).json({ error }))
-				//
+			}
+		})
+		//
+		.catch((error) => {
+			res.status(400).json({
+				error: error,
 			})
-		} else if (!req.file && sauce.userId == req.auth.userId) {
-			//
-			Sauce.updateOne(
-				//object of comparaison
-				{ _id: req.params.id },
-				//new object
-				{ ...req.body }
-			)
-				.then(() => res.status(200).json({ message: 'Sauce modifiée' }))
-				.catch((error) => res.status(400).json({ error }))
-		}
-	})
+		})
 	//
 }
 
