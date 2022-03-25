@@ -7,6 +7,10 @@ module.exports = (req, res, next) => {
 		// array [bearer token(crypted)] --> we get the token
 		const token = req.headers.authorization.split(' ')[1]
 		const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET')
+		// à passer en variable d'environnement
+		// à passer en variable d'environnement
+		// à passer en variable d'environnement
+		// à passer en variable d'environnement
 		const userId = decodedToken.userId
 		// prevent delete object from someone else
 		//req.userId = userId;
