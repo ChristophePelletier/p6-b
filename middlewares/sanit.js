@@ -11,12 +11,24 @@ module.exports = (req, res, next) => {
 		//console.log('sauceObject : ', sauceObject)
 		//console.log('req.body.sauce : ', req.body.sauce)
 		//console.log('sauceObject.name :', sauceObject.name)
-		let majName = sauceObject.name.replace(/\$|\./g, '_')
+		let majName = sauceObject.name.replace(/\$|\.|#|"|'|\?|!/g, '_')
 		sauceObject.name = majName
-		let majManufacturer = sauceObject.manufacturer.replace(/\$/g, '_')
+		//
+		let majManufacturer = sauceObject.manufacturer.replace(
+			/\$|\.|#|"|'|\?|!/g,
+			'_'
+		)
 		sauceObject.manufacturer = majManufacturer
-		//console.log('sauceObject.name updated :', sauceObject.name)
-		//console.log(req.body.sauce.name)
+		//
+		let majDescription = sauceObject.description.replace(
+			/\$|\.|#|"|'|\?|!/g,
+			'_'
+		)
+		sauceObject.description = majDescription
+		//
+		let majMainPepper = sauceObject.mainPepper.replace(/\$|\.|#|"|'|\?|!/g, '_')
+		sauceObject.mainPepper = majMainPepper
+		//
 		req.body.sauce = JSON.stringify(sauceObject)
 		console.log('req.body.sauce :', req.body.sauce)
 		next()
