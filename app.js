@@ -11,6 +11,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
+const errorController = require('./controllers/errorController.js')
 //const mongoSanitize = require('express-mongo-sanitize')
 
 const app = express()
@@ -52,6 +53,7 @@ mongoose
 //
 //MIDDLEWARES
 //
+
 app.use(helmet({ crossOriginResourcePolicy: false }))
 
 app.use(express.json())
@@ -71,15 +73,35 @@ app.use('/api/sauces', sauceRoutes)
 app.post('/test', function (req, res) {
 	res.send('hello world')
 })
-
-app.post('/api/test2', (req, res, next) => {
+/*
+app.use('', (req, res, next) => {
 	console.log(req.body)
 	res.status(201).json({
 		message: 'Sauce créée',
 	})
 })
-
+*/
+//app.use(errorController.logErrors)
+//app.use(errorController.respondNoRessourceFound)
+//app.use(errorController.respondInternalError)
 app.use('/images', express.static(path.join(__dirname, 'images')))
+/*
+app.use(function (req, res, next) {
+	console.log('test')
+	res.status(404)
+	res.send('404: Page non trouvée')
+})
+
+app.use((req, res) => {
+	res.status(404).redirect('/MyHomepage')
+})
+*/
+
+/*
+app.use((req, res) => {
+	res.status(404).send("Sorry can't find that!")
+})
+*/
 //app.use(mongoSanitize())
 // export the app -> access from server.js / ...
 module.exports = app

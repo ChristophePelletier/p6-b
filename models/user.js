@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
+
 //const passwordValidator = require('../middlewares/password')
 /*
 mongoose-unique-validator
@@ -14,7 +15,7 @@ This makes error handling much easier, since you will get a Mongoose validation 
 const userSchema = mongoose.Schema({
 	email: {
 		type: String,
-		required: true,
+		required: [true, 'Merci de saisir un email valide'],
 		validate: {
 			validator: function (v) {
 				return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v)
@@ -40,6 +41,7 @@ const userSchema = mongoose.Schema({
 
 // we apply the validator to the Schema before making the model
 // with the method plugin --> argument : uniqueValidator
+
 userSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('User', userSchema)

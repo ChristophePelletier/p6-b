@@ -2,6 +2,12 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 //
 const User = require('../models/user')
+
+/*
+const handleErrors = (err) => {
+	console.log(err.message, err.code)
+}
+*/
 //const dotenv = require('dotenv')
 //dotenv.config()
 // SIGNUP
@@ -28,8 +34,8 @@ exports.signup = (req, res, next) => {
 					res.status(201).json({ message: 'Contributeur de sauces bien créé' })
 				)
 				.catch((error) => res.status(400).json({ error }))
+			//.catch((error) => handleErrors)
 		})
-
 		.catch((error) => res.status(500).json({ error }))
 }
 
