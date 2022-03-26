@@ -8,8 +8,8 @@ const handleErrors = (err) => {
 	console.log(err.message, err.code)
 }
 */
-//const dotenv = require('dotenv')
-//dotenv.config()
+const dotenv = require('dotenv')
+dotenv.config()
 // SIGNUP
 // POST : /api/auth/signup
 // request email password

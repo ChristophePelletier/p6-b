@@ -6,11 +6,8 @@ module.exports = (req, res, next) => {
 		//we get the authorization in the req.headers and get the token
 		// array [bearer token(crypted)] --> we get the token
 		const token = req.headers.authorization.split(' ')[1]
-		const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET')
-		// à passer en variable d'environnement
-		// à passer en variable d'environnement
-		// à passer en variable d'environnement
-		// à passer en variable d'environnement
+		const decodedToken = jwt.verify(token, process.env.RTS)
+		// OK : we pass it in env variable
 		const userId = decodedToken.userId
 		// prevent delete object from someone else
 		//req.userId = userId;
@@ -23,6 +20,7 @@ module.exports = (req, res, next) => {
 		//
 		if (req.body.userId && req.body.userId !== userId) {
 			console.log('Middleware auth : erreur vérif token')
+			//exception
 			throw 'User ID non valable'
 		} else {
 			console.log('Middleware auth : token ok')
@@ -33,6 +31,7 @@ module.exports = (req, res, next) => {
 		//"Si l'userId ne correspond pas, renvoyer « 403: unauthorized request. »"
 		res.status(403)
 		res.send({ errorCode: '403: unauthorized request' })
+		//!!!!
 		//res.status(403).json({
 		//	error: new Error('unauthorized request'),
 		//})

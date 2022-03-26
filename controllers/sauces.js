@@ -125,9 +125,14 @@ exports.deleteSauce = (req, res, next) => {
 				console.log('non non non autorisé')
 				// !!!
 				return res.status(401).json({
+					error: error,
+				})
+				/*
+				return res.status(401).json({
 					error:
 						'requête non autorisée : seul le créateur de la sauce peut la supprimer',
 				})
+				*/
 			}
 			//
 
