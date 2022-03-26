@@ -10,14 +10,12 @@ exports.createSauce = (req, res, next) => {
 	delete sauceObject._id
 	//correction security problem
 	//without this condition we can create a sauce with a user id we choose
-	/*
 	if (sauceObject.userId !== req.auth.userId) {
 		console.log('non non non autorisé')
 		return res.status(401).json({
 			message: 'unauthorized',
 		})
 	}
-	*/
 	//
 	const sauce = new Sauce({
 		...sauceObject,
