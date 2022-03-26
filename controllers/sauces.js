@@ -8,6 +8,17 @@ exports.createSauce = (req, res, next) => {
 	// get the object
 	const sauceObject = JSON.parse(req.body.sauce)
 	delete sauceObject._id
+	//correction security problem
+	//without this condition we can create a sauce with a user id we choose
+	/*
+	if (sauceObject.userId !== req.auth.userId) {
+		console.log('non non non autorisé')
+		return res.status(401).json({
+			message: 'unauthorized',
+		})
+	}
+	*/
+	//
 	const sauce = new Sauce({
 		...sauceObject,
 		// image URL http or https + host of the server + /images/ + filename

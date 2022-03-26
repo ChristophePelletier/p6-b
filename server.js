@@ -42,12 +42,7 @@ const errorHandler = (error) => {
 	}
 }
 //security --> for the prod, pass to https
-/*
-const server = http.createServer((req, res) =>
-{
-	res.end("test");
-})
-*/
+
 //we pass our app to the server
 const server = http.createServer(app)
 
@@ -60,6 +55,15 @@ server.on('listening', () => {
 
 server.listen(port)
 
+///////////////////////
+///////TESTS****TESTS
+///////////////////////
+/*
+const server = http.createServer((req, res) =>
+{
+	res.end("test");
+})
+*/
 /*
 //test
 app.get('/dotenv', (req, res) => {

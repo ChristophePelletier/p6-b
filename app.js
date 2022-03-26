@@ -10,22 +10,18 @@ dotenv.config()
 const express = require('express')
 const mongoose = require('mongoose')
 const helmet = require('helmet')
-const bodyParser = require('body-parser')
-const errorController = require('./controllers/errorController.js')
-//const mongoSanitize = require('express-mongo-sanitize')
-
 const app = express()
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
-
 //our express app
+//
 //const apiLimiter = require('./middlewares/rate-limit.js')
+// firt we choose to activate this security only for the login route
+//const errorController = require('./controllers/errorController.js')
+
 const userRoutes = require('./routes/user')
 const sauceRoutes = require('./routes/sauces')
-//for the test only
+
 // for images -> gets the path of the files --> for the middleware for the images
 const path = require('path')
-//const errorHandler = require('./middlewares/errorhandler.js')
 //
 //CORS / CORS MUST BE PLACE BEFORE THE MIDDLEWAIRES
 //
@@ -53,11 +49,8 @@ mongoose
 //
 //MIDDLEWARES
 //
-
 app.use(helmet({ crossOriginResourcePolicy: false }))
-
 app.use(express.json())
-
 // --> must be placed before the JSON requests
 // --> gets all the requests with content-type application/json
 // --> request are available in body
@@ -65,14 +58,21 @@ app.use(express.json())
 
 //
 //app.use('/api', apiLimiter)
-//app.use(bodyParser.urlencoded({ extended: true }))
-//app.use(bodyParser.json())
 
 app.use('/api/auth', userRoutes)
 app.use('/api/sauces', sauceRoutes)
 app.post('/test', function (req, res) {
 	res.send('hello world')
 })
+
+app.use('/images', express.static(path.join(__dirname, 'images')))
+
+module.exports = app
+
+///////////////////////
+///////TESTS****TESTS
+///////////////////////
+
 /*
 app.use('', (req, res, next) => {
 	console.log(req.body)
@@ -84,7 +84,7 @@ app.use('', (req, res, next) => {
 //app.use(errorController.logErrors)
 //app.use(errorController.respondNoRessourceFound)
 //app.use(errorController.respondInternalError)
-app.use('/images', express.static(path.join(__dirname, 'images')))
+
 /*
 app.use(function (req, res, next) {
 	console.log('test')
@@ -104,4 +104,3 @@ app.use((req, res) => {
 */
 //app.use(mongoSanitize())
 // export the app -> access from server.js / ...
-module.exports = app
