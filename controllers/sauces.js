@@ -10,8 +10,10 @@ exports.createSauce = (req, res, next) => {
 	delete sauceObject._id
 	//correction security problem
 	//without this condition we can create a sauce with a user id we choose
+	//-> we check that the user Id in the object is the same as the id in the token
+	// for memory : req.auth.userId -> decodedToken.userId
 	if (sauceObject.userId !== req.auth.userId) {
-		console.log('non non non autorisé')
+		console.log('non autorisé')
 		return res.status(401).json({
 			message: 'unauthorized',
 		})
