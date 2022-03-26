@@ -116,16 +116,21 @@ exports.deleteSauce = (req, res, next) => {
 	Sauce.findOne({ _id: req.params.id })
 		.then((sauce) => {
 			if (!sauce) {
+				return res.status(404).json({
+					message: 'Not Found',
+				})
+				/*
 				res.status(404).json({
 					error: new Error('no sauce'),
 				})
+				*/
 			}
 			// ! only the user who sent the sauce can delete the sauce
 			if (sauce.userId !== req.auth.userId) {
 				console.log('non non non autorisé')
 				// !!!
 				return res.status(401).json({
-					error: error,
+					message: 'unauthorized',
 				})
 				/*
 				return res.status(401).json({
