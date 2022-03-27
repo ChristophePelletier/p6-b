@@ -10,6 +10,7 @@ module.exports = (req, res, next) => {
 		//if error --> catch
 		// OK : we pass it in env variable
 		const userId = decodedToken.userId
+		console.log('rrrr', decodedToken.userId)
 		// prevent delete object from someone else
 		//req.userId = userId;
 		//
