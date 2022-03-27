@@ -277,6 +277,11 @@ exports.likeSauce = (req, res, next) => {
 		})
 }
 
+/**
+ First version of deleteSauce method
+ ---> problem : when image updated, the former image stays on the server
+ */
+//
 /*
 exports.deleteSauce = (req, res, next) => {
 	Sauce.findOne({ _id: req.params.id }).then((sauce) => {
