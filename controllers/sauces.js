@@ -138,7 +138,7 @@ exports.deleteSauce = (req, res, next) => {
 			}
 			// ! only the user who sent the sauce can delete the sauce
 			if (sauce.userId !== req.auth.userId) {
-				console.log('non non non autorisé')
+				console.log('nonautorisé')
 				// !!!
 				return res.status(401).json({
 					message: 'unauthorized',

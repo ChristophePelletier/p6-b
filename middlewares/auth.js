@@ -7,10 +7,13 @@ module.exports = (req, res, next) => {
 		// array [bearer token(crypted)] --> we get the token
 		const token = req.headers.authorization.split(' ')[1]
 		const decodedToken = jwt.verify(token, process.env.RTS)
+		//
+		//jwt.verify(token, process.env.RTS)
 		//if error --> catch
 		// OK : we pass it in env variable
 		const userId = decodedToken.userId
 		console.log('rrrr', decodedToken.userId)
+		console.log('userId', userId)
 		// prevent delete object from someone else
 		//req.userId = userId;
 		//
@@ -21,8 +24,6 @@ module.exports = (req, res, next) => {
 		//
 		//
 		if (req.body.userId && req.body.userId !== userId) {
-			console.log('Middleware auth : erreur vérif token')
-			console.log('req.body.userId', req.body.userId)
 			/*
 			//exception
 			//Throwing your own errors (exceptions)
