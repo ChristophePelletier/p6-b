@@ -195,7 +195,7 @@ exports.likeSauce = (req, res, next) => {
 				sauce.usersLiked.push(req.body.userId)
 				//the number of likes is the length of the array
 				sauce.likes = sauce.usersLiked.length
-				//
+				//security we prevent someone to like and dislike one sauce
 				if (sauce.usersDisliked.includes(req.body.userId) == true) {
 					let indexToDelete = sauce.usersDisliked.indexOf(req.body.userId)
 					sauce.usersDisliked.splice(indexToDelete, 1)
@@ -221,7 +221,7 @@ exports.likeSauce = (req, res, next) => {
 				console.log('req.body :', req.body)
 				sauce.usersDisliked.push(req.body.userId)
 				sauce.dislikes = sauce.usersDisliked.length
-				//
+				//security we prevent someone to like and dislike one sauce
 				if (sauce.usersLiked.includes(req.body.userId) == true) {
 					let indexToDelete = sauce.usersLiked.indexOf(req.body.userId)
 					sauce.usersLiked.splice(indexToDelete, 1)
