@@ -1,10 +1,3 @@
-/*
-function clearInputs(input) {
-	let maj = input.replace(/\$/g, '_')
-	return maj
-}
-*/
-
 module.exports = (req, res, next) => {
 	try {
 		let sauceObject = JSON.parse(req.body.sauce)

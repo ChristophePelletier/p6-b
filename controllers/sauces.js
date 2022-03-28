@@ -73,8 +73,21 @@ exports.updateSauce = (req, res, next) => {
 	//
 	Sauce.findOne({ _id: req.params.id })
 		.then((sauce) => {
-			if (req.file && sauce.userId == req.auth.userId) {
-				console.log('req.body : !!!', req.body)
+			const sauceObject = JSON.parse(req.body.sauce)
+			if (
+				req.file &&
+				sauceObject.userId == req.auth.userId &&
+				sauceObject.likes == sauce.likes &&
+				sauceObject.dislikes == sauce.dislikes
+			) {
+				//sauce.usersLiked.length == req.body.likes
+
+				//pas de possibilité de modifier tableau like et dislike
+				//&& req.body.usersLiked == sauce.usersLiked &&
+				//req.body.usersDisliked == sauce.usersDisliked
+				//console.log('sauce.userId', sauce.userId)
+				//console.log('req.body : !!! avec image', req.body)
+				console.log('sauceObjet', sauceObject.usersDisliked)
 				const filename = sauce.imageUrl.split('/images')[1]
 				//we choose to first delete the former file in the image directory
 				fs.unlink(`images/${filename}`, () => {
@@ -85,9 +98,7 @@ exports.updateSauce = (req, res, next) => {
 						//new object
 						{
 							...JSON.parse(req.body.sauce),
-							//test test  :
 							_id: req.params.id,
-
 							imageUrl: `${req.protocol}://${req.get('host')}/images/${
 								req.file.filename
 							}`,
@@ -97,8 +108,16 @@ exports.updateSauce = (req, res, next) => {
 						.catch((error) => res.status(400).json({ error }))
 					//
 				})
-			} else if (!req.file && sauce.userId == req.auth.userId) {
-				console.log('req.body : !!!', req.body)
+			} else if (
+				!req.file &&
+				sauce.userId == req.auth.userId
+				//req.body.likes == sauce.likes &&
+				//req.body.dislikes == sauce.dislikes
+				//JSON.stringify(req.body.usersLiked) == JSON.stringify(sauce.usersLiked)
+				//sauce.usersLiked.length == req.body.likes
+			) {
+				console.log('req.body : !!! sans image', req.body)
+				//console.log('sauce.usersDisliked : !!! sans image', sauce.//usersDisliked)
 				//
 				Sauce.updateOne(
 					//object of comparaison
@@ -108,6 +127,14 @@ exports.updateSauce = (req, res, next) => {
 				)
 					.then(() => res.status(200).json({ message: 'Sauce modifiée' }))
 					.catch((error) => res.status(400).json({ error }))
+			} else {
+				//console.log('sauce.userId erreur', sauce.userId)
+				console.log('req.body : erreur', req.body)
+				//console.log('sauce.usersDisliked : erreur', sauce.usersDisliked)
+				throw error
+				//res.status(400).json({
+				//	error: error,
+				//})
 			}
 		})
 		//
