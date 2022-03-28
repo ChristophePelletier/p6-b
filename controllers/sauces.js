@@ -254,7 +254,7 @@ exports.likeSauce = (req, res, next) => {
 					sauce.likes = sauce.usersLiked.length
 				} else {
 					console.log('?', req.body)
-					res.status(400).json({ error: 'like / dislike impossible' })
+					//res.status(400).json({ error: 'like / dislike impossible' })
 				}
 				sauce
 					.save()
@@ -266,7 +266,8 @@ exports.likeSauce = (req, res, next) => {
 					.catch((error) => res.status(400).json({ error: error }))
 			} else {
 				console.log('erreur', req.body)
-				res.status(400).json({ error: 'like / dislike impossible' })
+				throw 'erreur'
+				//res.status(400).json({ error: 'like / dislike impossible' })
 			}
 		})
 
@@ -276,36 +277,3 @@ exports.likeSauce = (req, res, next) => {
 			})
 		})
 }
-
-/**
- First version of deleteSauce method
- ---> problem : when image updated, the former image stays on the server
- */
-//
-/*
-exports.deleteSauce = (req, res, next) => {
-	Sauce.findOne({ _id: req.params.id }).then((sauce) => {
-		if (!sauce) {
-			res.status(404).json({
-				error: new Error('No sauce'),
-			})
-		}
-		if (sauce.userId !== req.auth.userId) {
-			console.log('non non non autorisé')
-			// !!!
-			return res.status(401).json({ error: new Error('requête non autorisée') })
-		}
-		Sauce.deleteOne({ _id: req.params.id })
-			.then(() => {
-				res.status(200).json({
-					message: 'Sauce supprimée',
-				})
-			})
-			.catch((error) => {
-				res.status(400).json({
-					error: error,
-				})
-			})
-	})
-}
-*/
