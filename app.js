@@ -11,6 +11,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const helmet = require('helmet')
 const app = express()
+const mongooseExpressErrorHandler = require('mongoose-express-error-handler')
 //our express app
 //
 //const apiLimiter = require('./middlewares/rate-limit.js')
@@ -66,7 +67,7 @@ app.post('/test', function (req, res) {
 })
 
 app.use('/images', express.static(path.join(__dirname, 'images')))
-
+app.use(mongooseExpressErrorHandler)
 module.exports = app
 
 ///////////////////////
@@ -77,7 +78,7 @@ module.exports = app
 app.use('', (req, res, next) => {
 	console.log(req.body)
 	res.status(201).json({
-		message: 'Sauce créée',
+		message: 'test',
 	})
 })
 */
