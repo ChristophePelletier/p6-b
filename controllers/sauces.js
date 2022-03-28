@@ -253,16 +253,14 @@ exports.likeSauce = (req, res, next) => {
 					sauce.usersLiked.splice(indexToDelete, 1)
 					sauce.likes = sauce.usersLiked.length
 				} else {
-					console.log('?', req.body)
-					//throw 'erreur'
+					console.log('nothing to do', req.body)
+					throw 'déjà ni like ou dislike'
 					//res.status(400).json({ error: 'like / dislike impossible' })
 				}
 				sauce
 					.save()
 					//save returns a promise --> then ... catch
-					.then(() =>
-						res.status(201).json({ message: 'cancel like dislike ok' })
-					)
+					.then(() => res.status(201).json({ message: 'cancel' }))
 					// !!response to the front necessary else the request would expire
 					.catch((error) => res.status(400).json({ error: error }))
 			} else {

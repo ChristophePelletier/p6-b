@@ -11,7 +11,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const helmet = require('helmet')
 const app = express()
-const mongooseExpressErrorHandler = require('mongoose-express-error-handler')
+//const mongooseExpressErrorHandler = require('mongoose-express-error-handler')
 //our express app
 //
 //const apiLimiter = require('./middlewares/rate-limit.js')
@@ -61,12 +61,9 @@ app.use(express.json())
 
 app.use('/api/auth', userRoutes)
 app.use('/api/sauces', sauceRoutes)
-app.post('/test', function (req, res) {
-	res.send('hello world')
-})
 
 app.use('/images', express.static(path.join(__dirname, 'images')))
-app.use(mongooseExpressErrorHandler)
+//app.use(mongooseExpressErrorHandler)
 module.exports = app
 
 ///////////////////////
@@ -75,5 +72,11 @@ module.exports = app
 /*
 app.use('*', (req, res) => {
 	res.status(404).redirect('http://127.0.0.1:8081/')
+})
+*/
+
+/*
+app.post('/test', function (req, res) {
+	res.send('hello world')
 })
 */
