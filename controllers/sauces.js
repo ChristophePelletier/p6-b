@@ -13,7 +13,7 @@ exports.createSauce = (req, res, next) => {
 	//-> we check that the user Id in the object is the same as the id in the token
 	// for memory : req.auth.userId -> decodedToken.userId
 	if (
-		sauceObject.userId !== req.auth.userId ||
+		//sauceObject.userId !== req.auth.userId ||
 		sauceObject.likes !== undefined ||
 		sauceObject.dislikes !== undefined ||
 		sauceObject.usersLiked !== undefined ||
@@ -139,6 +139,7 @@ exports.updateSauce = (req, res, next) => {
 
 		//
 		.catch((error) => {
+			console.log('pbpb')
 			res.status(400).json({
 				error: error,
 			})
