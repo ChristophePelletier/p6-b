@@ -117,6 +117,7 @@ exports.updateSauce = (req, res, next) => {
 					.catch((error) => res.status(400).json({ error }))
 			} else {
 				console.log('erreur')
+				throw 'erreur'
 			}
 		})
 
