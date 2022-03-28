@@ -15,9 +15,9 @@ exports.createSauce = (req, res, next) => {
 	if (
 		sauceObject.userId !== req.auth.userId ||
 		sauceObject.likes !== undefined ||
-		sauceObject.dislikes != undefined ||
-		sauceObject.usersLiked != undefined ||
-		sauceObject.usersDisliked != undefined
+		sauceObject.dislikes !== undefined ||
+		sauceObject.usersLiked !== undefined ||
+		sauceObject.usersDisliked !== undefined
 	) {
 		console.log('non autorisé')
 		return res.status(401).json({
