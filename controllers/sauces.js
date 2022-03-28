@@ -73,8 +73,8 @@ exports.updateSauce = (req, res, next) => {
 	//
 	Sauce.findOne({ _id: req.params.id })
 		.then((sauce) => {
-			if (req.file && sauce.userId == req.auth.userId) {
-				console.log('req.body : !!!', req.body)
+			if (req.file) {
+				//console.log('req.body : !!!', req.body)
 				const filename = sauce.imageUrl.split('/images')[1]
 				//we choose to first delete the former file in the image directory
 				fs.unlink(`images/${filename}`, () => {
