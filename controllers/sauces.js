@@ -84,7 +84,10 @@ exports.updateSauce = (req, res, next) => {
 			if (
 				req.file &&
 				sauce.userId == req.auth.userId &&
-				JSON.parse(req.body.sauce).likes == undefined
+				JSON.parse(req.body.sauce).likes == undefined &&
+				JSON.parse(req.body.sauce).dislikes == undefined &&
+				JSON.parse(req.body.sauce).usersLiked == undefined &&
+				JSON.parse(req.body.sauce).usersDisliked == undefined
 			) {
 				console.log('req.body : !!!', req.body)
 
@@ -110,7 +113,14 @@ exports.updateSauce = (req, res, next) => {
 						.catch((error) => res.status(400).json({ error }))
 					//
 				})
-			} else if (!req.file && sauce.userId == req.auth.userId) {
+			} else if (
+				!req.file &&
+				sauce.userId == req.auth.userId &&
+				req.body.likes == undefined &&
+				req.body.dislikes == undefined &&
+				req.body.usersLiked == undefined &&
+				req.body.usersDisliked == undefined
+			) {
 				console.log('req.body : !!!', req.body)
 				//
 				Sauce.updateOne(
