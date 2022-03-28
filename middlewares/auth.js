@@ -16,38 +16,21 @@ module.exports = (req, res, next) => {
 		console.log('userId', userId)
 		// prevent delete object from someone else
 		//req.userId = userId;
-		//
 		// we add to the request object the userId --> for the delete function
 		req.auth = { userId }
 		//req.userId=userId;
 		//req.auth = { userId: userId }
-		//
-		//
 		if (req.body.userId && req.body.userId !== userId) {
-			/*
-			//exception
-			//Throwing your own errors (exceptions)
-			Instead of waiting for one error to occur before control is automatically transferred from the try block to the catch block, 
-			--> you can also explicitly throw your own exceptions to force that to happen on demand.
-			--> This is great for creating your own definitions of what an error is and when control should be transferred to catch.
-			*/
 			throw 'User ID not valid'
 		} else {
 			console.log('Middleware auth : token ok')
-
 			next()
 		}
 	} catch {
 		//specifications :
 		//"Si l'userId ne correspond pas, renvoyer « 403: unauthorized request. »"
-		//res.status(403)
-		//res.send({ errorCode: '403: unauthorized request' })
-		//
-		//res.status(401).json({ error: error | 'requête non authentifiée' })
-		//!!!!
-		const error = new Error('Invalid request')
-		console.log(error.message)
-		res.status(401).json({
+		const error = new Error('unauthorized request')
+		res.status(403).json({
 			error: error.message,
 		})
 	}

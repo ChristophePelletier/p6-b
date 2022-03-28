@@ -54,19 +54,3 @@ server.on('listening', () => {
 })
 
 server.listen(port)
-
-///////////////////////
-///////TESTS****TESTS
-///////////////////////
-/*
-const server = http.createServer((req, res) =>
-{
-	res.end("test");
-})
-*/
-/*
-//test
-app.get('/dotenv', (req, res) => {
-	return res.send(MY_APP_SECRET)
-})
-*/

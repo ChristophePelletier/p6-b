@@ -16,7 +16,6 @@ const mongooseExpressErrorHandler = require('mongoose-express-error-handler')
 //
 //const apiLimiter = require('./middlewares/rate-limit.js')
 // firt we choose to activate this security only for the login route
-//const errorController = require('./controllers/errorController.js')
 
 const userRoutes = require('./routes/user')
 const sauceRoutes = require('./routes/sauces')

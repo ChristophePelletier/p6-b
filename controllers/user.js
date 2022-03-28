@@ -3,11 +3,6 @@ const jwt = require('jsonwebtoken')
 //
 const User = require('../models/user')
 
-/*
-const handleErrors = (err) => {
-	console.log(err.message, err.code)
-}
-*/
 const dotenv = require('dotenv')
 dotenv.config()
 // SIGNUP
@@ -40,8 +35,6 @@ exports.signup = (req, res, next) => {
 }
 
 // http://localhost:3000/api/auth/signup
-// test postman ok --> JSON
-// {"email":"bbb@aaa.fr","password":"bbb"}
 
 //LOGIN
 // POST : /api/auth/login
@@ -83,5 +76,3 @@ exports.login = (req, res, next) => {
 }
 
 // http://localhost:3000/api/auth/login
-// test postman ok --> JSON
-// {"email":"test@test.fr","password":"test"}
