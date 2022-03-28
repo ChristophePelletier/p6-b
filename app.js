@@ -73,35 +73,8 @@ module.exports = app
 ///////////////////////
 ///////TESTS****TESTS
 ///////////////////////
-
 /*
-app.use('', (req, res, next) => {
-	console.log(req.body)
-	res.status(201).json({
-		message: 'test',
-	})
+app.use('*', (req, res) => {
+	res.status(404).redirect('http://127.0.0.1:8081/')
 })
 */
-//app.use(errorController.logErrors)
-//app.use(errorController.respondNoRessourceFound)
-//app.use(errorController.respondInternalError)
-
-/*
-app.use(function (req, res, next) {
-	console.log('test')
-	res.status(404)
-	res.send('404: Page non trouvée')
-})
-
-app.use((req, res) => {
-	res.status(404).redirect('/MyHomepage')
-})
-*/
-
-/*
-app.use((req, res) => {
-	res.status(404).send("Sorry can't find that!")
-})
-*/
-//app.use(mongoSanitize())
-// export the app -> access from server.js / ...

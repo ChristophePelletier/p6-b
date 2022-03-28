@@ -45,9 +45,10 @@ module.exports = (req, res, next) => {
 		//
 		//res.status(401).json({ error: error | 'requête non authentifiée' })
 		//!!!!
-
+		const error = new Error('Invalid request')
+		console.log(error.message)
 		res.status(401).json({
-			error: new Error('Invalid request!'),
+			error: error.message,
 		})
 	}
 }
