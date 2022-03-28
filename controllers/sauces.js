@@ -69,12 +69,19 @@ exports.getOneSauce = (req, res, next) => {
 /**
  updateSauce
  */
+/**
+ updateSauce
+ */
 exports.updateSauce = (req, res, next) => {
-	//
 	Sauce.findOne({ _id: req.params.id })
 		.then((sauce) => {
-			if (req.file) {
-				//console.log('req.body : !!!', req.body)
+			if (
+				req.file &&
+				sauce.userId == req.auth.userId &&
+				JSON.parse(req.body.sauce).likes == undefined
+			) {
+				console.log('req.body : !!!', req.body)
+
 				const filename = sauce.imageUrl.split('/images')[1]
 				//we choose to first delete the former file in the image directory
 				fs.unlink(`images/${filename}`, () => {
@@ -108,8 +115,11 @@ exports.updateSauce = (req, res, next) => {
 				)
 					.then(() => res.status(200).json({ message: 'Sauce modifiée' }))
 					.catch((error) => res.status(400).json({ error }))
+			} else {
+				console.log('erreur')
 			}
 		})
+
 		//
 		.catch((error) => {
 			res.status(400).json({
@@ -253,8 +263,8 @@ exports.likeSauce = (req, res, next) => {
 					sauce.usersLiked.splice(indexToDelete, 1)
 					sauce.likes = sauce.usersLiked.length
 				} else {
-					console.log('?', req.body)
-					//throw 'erreur'
+					console.log('nothing to do', req.body)
+					throw 'déjà ni like ou dislike'
 					//res.status(400).json({ error: 'like / dislike impossible' })
 				}
 				sauce

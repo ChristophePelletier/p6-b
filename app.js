@@ -16,7 +16,6 @@ const app = express()
 //
 //const apiLimiter = require('./middlewares/rate-limit.js')
 // firt we choose to activate this security only for the login route
-//const errorController = require('./controllers/errorController.js')
 
 const userRoutes = require('./routes/user')
 const sauceRoutes = require('./routes/sauces')
@@ -69,39 +68,3 @@ app.post('/test', function (req, res) {
 app.use('/images', express.static(path.join(__dirname, 'images')))
 //app.use(mongooseExpressErrorHandler)
 module.exports = app
-
-///////////////////////
-///////TESTS****TESTS
-///////////////////////
-
-/*
-app.use('', (req, res, next) => {
-	console.log(req.body)
-	res.status(201).json({
-		message: 'test',
-	})
-})
-*/
-//app.use(errorController.logErrors)
-//app.use(errorController.respondNoRessourceFound)
-//app.use(errorController.respondInternalError)
-
-/*
-app.use(function (req, res, next) {
-	console.log('test')
-	res.status(404)
-	res.send('404: Page non trouvée')
-})
-
-app.use((req, res) => {
-	res.status(404).redirect('/MyHomepage')
-})
-*/
-
-/*
-app.use((req, res) => {
-	res.status(404).send("Sorry can't find that!")
-})
-*/
-//app.use(mongoSanitize())
-// export the app -> access from server.js / ...
