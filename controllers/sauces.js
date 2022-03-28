@@ -77,8 +77,8 @@ exports.updateSauce = (req, res, next) => {
 			if (
 				req.file &&
 				sauceObject.userId == req.auth.userId &&
-				sauceObject.likes == sauce.likes &&
-				sauceObject.dislikes == sauce.dislikes
+				//sauceObject.likes == sauce.likes &&
+				//sauceObject.dislikes == sauce.dislikes
 			) {
 				//sauce.usersLiked.length == req.body.likes
 
