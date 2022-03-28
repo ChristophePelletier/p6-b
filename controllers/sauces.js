@@ -254,6 +254,7 @@ exports.likeSauce = (req, res, next) => {
 					sauce.likes = sauce.usersLiked.length
 				} else {
 					console.log('?', req.body)
+					//throw 'erreur'
 					//res.status(400).json({ error: 'like / dislike impossible' })
 				}
 				sauce
