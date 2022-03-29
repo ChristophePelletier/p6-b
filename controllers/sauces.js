@@ -8,12 +8,12 @@ exports.createSauce = (req, res, next) => {
 	// get the object
 	const sauceObject = JSON.parse(req.body.sauce)
 	delete sauceObject._id
-	//correction security problem
-	//without this condition we can create a sauce with a user id we choose
-	//-> we check that the user Id in the object is the same as the id in the token
-	// for memory : req.auth.userId -> decodedToken.userId
 	if (
-		//sauceObject.userId !== req.auth.userId ||
+		//correction security problem
+		//without this condition we can create a sauce with a user id we choose
+		//-> we check that the user Id in the object is the same as the id in the token
+		// for memory : req.auth.userId -> decodedToken.userId
+		sauceObject.userId !== req.auth.userId ||
 		sauceObject.likes !== undefined ||
 		sauceObject.dislikes !== undefined ||
 		sauceObject.usersLiked !== undefined ||
@@ -32,6 +32,7 @@ exports.createSauce = (req, res, next) => {
 			req.file.filename
 		}`,
 	})
+
 	sauce
 		.save()
 		//save returns a promise --> then ... catch
