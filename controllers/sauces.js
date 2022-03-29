@@ -83,7 +83,7 @@ exports.updateSauce = (req, res, next) => {
 		.then((sauce) => {
 			if (
 				req.file &&
-				sauce.userId == req.auth.userId &&
+				//sauce.userId == req.auth.userId &&
 				JSON.parse(req.body.sauce).likes == undefined &&
 				JSON.parse(req.body.sauce).dislikes == undefined &&
 				JSON.parse(req.body.sauce).usersLiked == undefined &&
@@ -115,7 +115,7 @@ exports.updateSauce = (req, res, next) => {
 				})
 			} else if (
 				!req.file &&
-				sauce.userId == req.auth.userId &&
+				//sauce.userId == req.auth.userId &&
 				req.body.likes == undefined &&
 				req.body.dislikes == undefined &&
 				req.body.usersLiked == undefined &&
