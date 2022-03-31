@@ -1,4 +1,4 @@
-# HOT TAKES
+# HOT TAKES BACKEND
 
 ## Installation
 
@@ -19,5 +19,13 @@ Here are the dependancies you need to install:
 
 ## Usage
 
-Run `npm start`.
-Use `Ctrl+C` in the terminal to stop the local server.
+- !!! after npm install --> 
+- Run `npm start`.
+- Images are downloaded in the "image" directory at the root --> do no delete or change the name of this directory
+- the password rules can be changed in the password schema (\models directory) thanks to the module password-validator
+- input policies restrictions can be adjusted thanks to the sanit and saninupadate middlewares thanks to regex
+- rate limit restrictions can be adjusted : for the moment : 100 requests in 15 minutes (middlewares -> rate-limit.js) / rate limit restrictions are just applied to the login route. For a rate limite restriction to the other pages : add the middleware to the route.
+-Use `Ctrl+C` in the terminal to stop the local server.
+
+## FRONT
+https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6
