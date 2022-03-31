@@ -19,9 +19,9 @@ Here are the dependancies you need to install:
 
 ## Usage
 
-Run `npm start`.
-Use `Ctrl+C` in the terminal to stop the local server.
-Images are downloaded in the "image" directory at the root.
+- Run `npm start`.
+- Images are downloaded in the "image" directory at the root.
+- Use `Ctrl+C` in the terminal to stop the local server.
 
 
 ## FRONT
