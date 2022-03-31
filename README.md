@@ -19,6 +19,7 @@ Here are the dependancies you need to install:
 
 ## Usage
 
+- !!! after npm install --> 
 - Run `npm start`.
 - Images are downloaded in the "image" directory at the root --> do no delete or change the name of this directory
 - the password rules can be changed in the password schema (\models directory) thanks to the module password-validator
