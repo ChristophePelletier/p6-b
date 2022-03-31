@@ -24,7 +24,7 @@ Here are the dependancies you need to install:
 - Use `Ctrl+C` in the terminal to stop the local server.
 - the password rules can be changed in the password schema (\models directory)
 - input policies restrictions can be adjusted thanks to the sanit and saninupadate middlewares thanks to regex
-- rate limit restrictions can be adjusted : for the moment : 100 requests in 15 minutes (middlewares -> rate-limit.js)
+- rate limit restrictions can be adjusted : for the moment : 100 requests in 15 minutes (middlewares -> rate-limit.js) / rate limit restrictions are just applied to the login route. For a rate limite restriction to the other pages : add the middleware to the route.
 
 ## FRONT
 https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6
