@@ -8,8 +8,8 @@ const handleErrors = (err) => {
 	console.log(err.message, err.code)
 }
 */
-const dotenv = require('dotenv')
-dotenv.config()
+//const dotenv = require('dotenv')
+//dotenv.config()
 // SIGNUP
 // POST : /api/auth/signup
 // request email password
@@ -70,7 +70,7 @@ exports.login = (req, res, next) => {
 						// 1: datas to endode in the token (payload)
 						// 2 : secret key
 						// 3 : time
-						token: jwt.sign({ userId: user._id }, 'process.env.RTS', {
+						token: jwt.sign({ userId: user._id }, 'RANDOM_TOKEN_SECRET', {
 							expiresIn: '12h',
 						}),
 						// OK Request headers : Bearer user._id crypted
