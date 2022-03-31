@@ -18,6 +18,8 @@ exports.createSauce = (req, res, next) => {
 		sauceObject.dislikes !== undefined ||
 		sauceObject.usersLiked !== undefined ||
 		sauceObject.usersDisliked !== undefined
+		//ajout après envoi pour présentation
+		//req.image == undefined
 	) {
 		console.log('non autorisé')
 		return res.status(401).json({
@@ -25,6 +27,7 @@ exports.createSauce = (req, res, next) => {
 		})
 	}
 	//
+	//console.log('reqreqiamge', req.file)
 	const sauce = new Sauce({
 		...sauceObject,
 		// image URL http or https + host of the server + /images/ + filename
