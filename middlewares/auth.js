@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
 	try {
 		//we get the authorization in the req.headers and get the token
 		// array [bearer token(crypted)] --> we get the token
-		const token = req.headers.authorization.split(' ')[1]
+		const token = req.headers.authorization.split('process.env.MONGO_URI')[1]
 		const decodedToken = jwt.verify(token, process.env.RTS)
 		//
 		//jwt.verify(token, process.env.RTS)
