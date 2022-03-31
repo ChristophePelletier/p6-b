@@ -22,7 +22,9 @@ Here are the dependancies you need to install:
 - Run `npm start`.
 - Images are downloaded in the "image" directory at the root.
 - Use `Ctrl+C` in the terminal to stop the local server.
-
+- the password rules can be changed in the password schema (\models directory)
+- input policies restrictions can be adjusted thanks to the sanit and saninupadate middlewares thanks to regex
+- rate limit restrictions can be adjusted : for the moment : 100 requests in 15 minutes (middlewares -> rate-limit.js)
 
 ## FRONT
 https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6
