@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
+dotenv.config()
 //
 const User = require('../models/user')
 
@@ -9,8 +10,7 @@ const handleErrors = (err) => {
 	console.log(err.message, err.code)
 }
 */
-const dotenv = require('dotenv')
-dotenv.config()
+
 // SIGNUP
 // POST : /api/auth/signup
 // request email password
