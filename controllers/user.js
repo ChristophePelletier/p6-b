@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv')
 //
 const User = require('../models/user')
 
@@ -70,7 +71,7 @@ exports.login = (req, res, next) => {
 						// 1: datas to endode in the token (payload)
 						// 2 : secret key
 						// 3 : time
-						token: jwt.sign({ userId: user._id }, 'RANDOM_TOKEN_SECRET', {
+						token: jwt.sign({ userId: user._id }, 'process.env.RTS', {
 							expiresIn: '12h',
 						}),
 						// OK Request headers : Bearer user._id crypted
